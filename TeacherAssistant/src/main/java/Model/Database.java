@@ -12,6 +12,5 @@ public class Database
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		
 		Connection conn = DriverManager.getConnection(connectionURL);
-		
 	}
 }
