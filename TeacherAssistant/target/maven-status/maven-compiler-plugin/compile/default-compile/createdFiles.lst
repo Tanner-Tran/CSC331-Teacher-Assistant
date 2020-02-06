@@ -1,0 +1,5 @@
+Controller\DBController.class
+Controller\LogicController.class
+Model\Database.class
+View\GUI.class
+Main\Driver.class

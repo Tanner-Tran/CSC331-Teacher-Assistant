@@ -1,5 +1,6 @@
 package Controller;
 
-public class DBController {
+public class DBController 
+{
 
 }

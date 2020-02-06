@@ -1,5 +1,6 @@
 package Controller;
 
-public class LogicController {
+public class LogicController 
+{
 
 }

@@ -1,5 +1,6 @@
 package View;
 
-public class GUI {
+public class GUI 
+{
 
 }
