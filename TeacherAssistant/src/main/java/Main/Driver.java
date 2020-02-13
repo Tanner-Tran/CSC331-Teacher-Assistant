@@ -8,8 +8,11 @@ public class Driver
 {
 	public static void main(String[] args) 
 	{
-		try {
+		try 
+		{
 			Database.openDB();
+			System.out.println(Database.validateLogin("ttran", "passwords"));
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
