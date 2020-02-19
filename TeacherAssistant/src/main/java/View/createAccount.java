@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class createAccount extends JFrame {
 
@@ -20,6 +21,8 @@ public class createAccount extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private JLabel lblPassword;
+	private JLabel lblUsername;
 	private JTextField textField_3;
 
 	/**
@@ -50,84 +53,44 @@ public class createAccount extends JFrame {
 		setContentPane(contentPane);
 		
 		JLabel lblFirstName = new JLabel("First Name");
+		lblFirstName.setBounds(91, 53, 53, 14);
 		
 		textField = new JTextField();
+		textField.setBounds(172, 50, 169, 20);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Last Name");
+		JButton btnNewButton = new JButton("Create Account");
+		btnNewButton.setBounds(172, 188, 107, 23);
+		contentPane.setLayout(null);
+		contentPane.add(lblFirstName);
+		contentPane.add(textField);
+		contentPane.add(btnNewButton);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
+		textField_1.setBounds(172, 78, 169, 20);
+		contentPane.add(textField_1);
 		
-		JLabel lblNewLabel_1 = new JLabel("Username");
+		JLabel lblLastName = new JLabel("Last Name");
+		lblLastName.setBounds(91, 81, 53, 14);
+		contentPane.add(lblLastName);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
+		textField_2.setBounds(172, 137, 169, 20);
+		contentPane.add(textField_2);
 		
-		JLabel lblNewLabel_2 = new JLabel("Password");
+		lblPassword = new JLabel("Password");
+		lblPassword.setBounds(91, 140, 53, 14);
+		contentPane.add(lblPassword);
+		
+		lblUsername = new JLabel("Username");
+		lblUsername.setBounds(91, 112, 53, 14);
+		contentPane.add(lblUsername);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Create Account");
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(30)
-					.addComponent(lblFirstName)
-					.addGap(5)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 354, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(32)
-					.addComponent(lblNewLabel)
-					.addGap(5)
-					.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 354, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(34)
-					.addComponent(lblNewLabel_1)
-					.addGap(5)
-					.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 354, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(37)
-					.addComponent(lblNewLabel_2)
-					.addGap(5)
-					.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 354, GroupLayout.PREFERRED_SIZE))
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(203, Short.MAX_VALUE)
-					.addComponent(btnNewButton)
-					.addGap(150))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(30)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblFirstName))
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(5)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(5)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblNewLabel_1))
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(5)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblNewLabel_2))
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addComponent(btnNewButton)
-					.addContainerGap(91, Short.MAX_VALUE))
-		);
-		contentPane.setLayout(gl_contentPane);
+		textField_3.setBounds(172, 109, 169, 20);
+		contentPane.add(textField_3);
 	}
-
 }

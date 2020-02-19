@@ -40,64 +40,43 @@ public class menu extends JFrame {
 	 */
 	public menu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 536, 344);
+		setBounds(100, 100, 554, 345);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JButton btnNewButton = new JButton("Add / Remove Class");
-		
-		JButton btnNewButton_1 = new JButton("Add / Remove Student");
-		
-		JButton btnNewButton_2 = new JButton("Attendance");
-		
-		JButton btnNewButton_3 = new JButton("Grades");
-		
-		JButton btnNewButton_4 = new JButton("Seating Chart");
-		
-		JButton btnNewButton_5 = new JButton("Log Behavior");
+		btnNewButton.setBounds(42, 98, 141, 39);
 		
 		JLabel lblNewLabel = new JLabel("Teacher Assistant");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(38)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNewLabel)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(btnNewButton_3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnNewButton))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(btnNewButton_4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnNewButton_1))))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnNewButton_5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(38, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(54)
-					.addComponent(lblNewLabel)
-					.addGap(53)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnNewButton_2, GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)))
-					.addGap(49)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewButton_3, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton_5, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
-					.addGap(44))
-		);
-		contentPane.setLayout(gl_contentPane);
+		lblNewLabel.setBounds(201, 32, 152, 19);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		
+		JButton button = new JButton("Add / Remove Student");
+		button.setBounds(201, 98, 141, 39);
+		
+		JButton btnAttendance = new JButton("Attendance");
+		btnAttendance.setBounds(360, 98, 141, 39);
+		contentPane.setLayout(null);
+		contentPane.add(lblNewLabel);
+		contentPane.add(btnNewButton);
+		contentPane.add(button);
+		contentPane.add(btnAttendance);
+		
+		JButton btnGrades = new JButton("Grades");
+		btnGrades.setBounds(42, 167, 141, 39);
+		contentPane.add(btnGrades);
+		
+		JButton btnSeatingChart = new JButton("Seating Chart");
+		btnSeatingChart.setBounds(201, 167, 141, 39);
+		contentPane.add(btnSeatingChart);
+		
+		JButton btnLogBehavior = new JButton("Log Behavior");
+		btnLogBehavior.setBounds(360, 167, 141, 39);
+		contentPane.add(btnLogBehavior);
+		
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.setBounds(201, 232, 141, 39);
+		contentPane.add(btnLogout);
 	}
 }
