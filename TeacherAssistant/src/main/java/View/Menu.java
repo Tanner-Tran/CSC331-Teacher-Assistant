@@ -48,7 +48,7 @@ public class Menu {
 	 */
 	protected void createContents() {
 		shlTeacherAssistant = new Shell();
-		shlTeacherAssistant.setSize(553, 345);
+		shlTeacherAssistant.setSize(557, 346);
 		shlTeacherAssistant.setText("Teacher Assistant");
 		shlTeacherAssistant.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
@@ -61,56 +61,56 @@ public class Menu {
 		composite.setLayout(gl_composite);
 		new Label(composite, SWT.NONE);
 		
-		Label lblNewLabel = new Label(composite, SWT.NONE);
-		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
-		lblNewLabel.setText("Teacher Assistant");
+		Label teacherAssistantLbl = new Label(composite, SWT.NONE);
+		teacherAssistantLbl.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
+		teacherAssistantLbl.setText("Teacher Assistant");
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		
-		Button btnNewButton = new Button(composite, SWT.NONE);
-		GridData gd_btnNewButton = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_btnNewButton.widthHint = 134;
-		btnNewButton.setLayoutData(gd_btnNewButton);
-		btnNewButton.setText("Add / Remove Class");
+		Button addRmvClassBtn = new Button(composite, SWT.NONE);
+		GridData gd_addRmvClassBtn = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
+		gd_addRmvClassBtn.widthHint = 134;
+		addRmvClassBtn.setLayoutData(gd_addRmvClassBtn);
+		addRmvClassBtn.setText("Add / Remove Class");
 		
-		Button btnA = new Button(composite, SWT.NONE);
-		GridData gd_btnA = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_btnA.widthHint = 134;
-		btnA.setLayoutData(gd_btnA);
-		btnA.setText("Add / Remove Student");
+		Button addRmvStudentBtn = new Button(composite, SWT.NONE);
+		GridData gd_addRmvStudentBtn = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
+		gd_addRmvStudentBtn.widthHint = 134;
+		addRmvStudentBtn.setLayoutData(gd_addRmvStudentBtn);
+		addRmvStudentBtn.setText("Add / Remove Student");
 		
-		Button btnAttendance = new Button(composite, SWT.NONE);
-		GridData gd_btnAttendance = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_btnAttendance.widthHint = 134;
-		btnAttendance.setLayoutData(gd_btnAttendance);
-		btnAttendance.setText("Attendance");
+		Button attendanceBtn = new Button(composite, SWT.NONE);
+		GridData gd_attendanceBtn = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
+		gd_attendanceBtn.widthHint = 134;
+		attendanceBtn.setLayoutData(gd_attendanceBtn);
+		attendanceBtn.setText("Attendance");
 		
-		Button btnNewButton_1 = new Button(composite, SWT.NONE);
-		GridData gd_btnNewButton_1 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_btnNewButton_1.widthHint = 134;
-		btnNewButton_1.setLayoutData(gd_btnNewButton_1);
-		btnNewButton_1.setText("Grades");
+		Button gradesBtn = new Button(composite, SWT.NONE);
+		GridData gd_gradesBtn = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
+		gd_gradesBtn.widthHint = 134;
+		gradesBtn.setLayoutData(gd_gradesBtn);
+		gradesBtn.setText("Grades");
 		
-		Button btnNewButton_2 = new Button(composite, SWT.NONE);
-		GridData gd_btnNewButton_2 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_btnNewButton_2.widthHint = 134;
-		btnNewButton_2.setLayoutData(gd_btnNewButton_2);
-		btnNewButton_2.setText("Seating Chart");
+		Button seatingChartBtn = new Button(composite, SWT.NONE);
+		GridData gd_seatingChartBtn = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
+		gd_seatingChartBtn.widthHint = 134;
+		seatingChartBtn.setLayoutData(gd_seatingChartBtn);
+		seatingChartBtn.setText("Seating Chart");
 		
-		Button btnNewButton_3 = new Button(composite, SWT.NONE);
-		GridData gd_btnNewButton_3 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_btnNewButton_3.widthHint = 134;
-		btnNewButton_3.setLayoutData(gd_btnNewButton_3);
-		btnNewButton_3.setText("Log Behavior");
+		Button logBehaviorBtn = new Button(composite, SWT.NONE);
+		GridData gd_logBehaviorBtn = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
+		gd_logBehaviorBtn.widthHint = 134;
+		logBehaviorBtn.setLayoutData(gd_logBehaviorBtn);
+		logBehaviorBtn.setText("Log Behavior");
 		new Label(composite, SWT.NONE);
 		
-		Button btnNewButton_4 = new Button(composite, SWT.NONE);
-		GridData gd_btnNewButton_4 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_btnNewButton_4.widthHint = 134;
-		btnNewButton_4.setLayoutData(gd_btnNewButton_4);
-		btnNewButton_4.setText("Logout");
+		Button logoutBtn = new Button(composite, SWT.NONE);
+		GridData gd_logoutBtn = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
+		gd_logoutBtn.widthHint = 134;
+		logoutBtn.setLayoutData(gd_logoutBtn);
+		logoutBtn.setText("Logout");
 		new Label(composite, SWT.NONE);
 		
 
