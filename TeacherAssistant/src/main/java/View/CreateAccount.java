@@ -4,6 +4,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
@@ -50,7 +52,8 @@ public class CreateAccount {
 	/**
 	 * Create contents of the window.
 	 */
-	protected void createContents() {
+	protected void createContents() 
+	{
 		shell = new Shell();
 		shell.setSize(464, 341);
 		shell.setText("Create Account");
@@ -107,7 +110,20 @@ public class CreateAccount {
 		
 		Button createAccountBtn = new Button(composite, SWT.NONE);
 		createAccountBtn.setText("Create Account");
+		
+		createAccountBtn.addSelectionListener(new SelectionListener()
+		{
+			public void widgetSelected(SelectionEvent e)
+			{
+				shell.setVisible(false);
+			}
 
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 }
