@@ -3,12 +3,16 @@ package View;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.FillLayout;
+
+import javax.swing.JOptionPane;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
@@ -116,10 +120,15 @@ public class CreateAccount {
 			public void widgetSelected(SelectionEvent e)
 			{
 				shell.setVisible(false);
+				MessageBox dialog = new MessageBox(shell, SWT.ICON_ERROR);
+				dialog.setText("Test");
+				dialog.setMessage("Test");
+				dialog.open();			
 			}
-
+			
 			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
+			public void widgetDefaultSelected(SelectionEvent e) 
+			{
 				// TODO Auto-generated method stub
 				
 			}
