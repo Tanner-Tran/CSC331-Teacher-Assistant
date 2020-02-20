@@ -30,7 +30,7 @@ public class Database
 		
 		ResultSet results = statement.executeQuery();
 		
-		return results.next();
+		return !results.next();
 	}
 	
 	public static boolean validateLogin(String username, String password) throws SQLException

@@ -3,9 +3,6 @@ package View;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.FillLayout;
-
-import javax.swing.JOptionPane;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -16,8 +13,10 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
+import Controller.DBController;
 
-public class CreateAccount {
+public class CreateAccount 
+{
 
 	protected Shell shell;
 	private Text firstNameTb;
@@ -25,23 +24,8 @@ public class CreateAccount {
 	private Text usernameTb;
 	private Text passwordTb;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			CreateAccount window = new CreateAccount();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Open the window.
-	 */
-	public void open() {
+	public void open() 
+	{
 		Display display = Display.getDefault();
 		createContents();
 		shell.open();
@@ -104,7 +88,8 @@ public class CreateAccount {
 		passwordLbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		passwordLbl.setText("Password");
 		
-		passwordTb = new Text(composite, SWT.BORDER);
+		passwordTb = new Text(composite, SWT.PASSWORD | SWT.BORDER);
+		passwordTb.setEchoChar('•');
 		GridData gd_passwordTb = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
 		gd_passwordTb.widthHint = 115;
 		passwordTb.setLayoutData(gd_passwordTb);
@@ -119,11 +104,23 @@ public class CreateAccount {
 		{
 			public void widgetSelected(SelectionEvent e)
 			{
-				shell.setVisible(false);
-				MessageBox dialog = new MessageBox(shell, SWT.ICON_ERROR);
-				dialog.setText("Test");
-				dialog.setMessage("Test");
-				dialog.open();			
+				if (DBController.checkIfUsernameAvailable(usernameTb.getText()))
+				{
+					DBController.addTeacherUser(lastNameTb.getText(), firstNameTb.getText(), usernameTb.getText(), passwordTb.getText());
+					
+					MessageBox successMsg = new MessageBox(shell, SWT.ICON_INFORMATION);
+					successMsg.setText("Success");
+					successMsg.setMessage("Account successfully created");
+					successMsg.open();
+					shell.setVisible(false);
+				}
+				else
+				{
+					MessageBox errorMsg = new MessageBox(shell, SWT.ICON_ERROR);
+					errorMsg.setText("Error");
+					errorMsg.setMessage("The inputted username is already taken. Please try again.");
+					errorMsg.open();
+				}
 			}
 			
 			@Override
@@ -134,5 +131,4 @@ public class CreateAccount {
 			}
 		});
 	}
-
 }
