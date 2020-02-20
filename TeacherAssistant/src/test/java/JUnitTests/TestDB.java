@@ -34,7 +34,7 @@ class TestDB {
 	{
 		demo.addTeacherUser("Whitston", "Howard", "H Whit", "password");
 		
-		if (demo.checkIfUsernameAvailable("H Whit"))
+		if (!demo.checkIfUsernameAvailable("H Whit"))
 		{
 			System.out.println("Username exists.");
 		}
