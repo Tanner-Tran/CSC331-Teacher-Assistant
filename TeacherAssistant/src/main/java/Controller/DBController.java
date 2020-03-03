@@ -69,6 +69,22 @@ public class DBController // This class should contain all of the methods of the
 		return false;
 	}
 	
+	public static boolean checkIfCourseHasStudents(String code, String teacher)
+	{
+		try 
+		{
+			return Database.checkIfCourseHasStudents(code, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return false;
+	}
+	
 	public static boolean validateLogin(String username, String password)
 	{
 		try 
@@ -134,7 +150,6 @@ public class DBController // This class should contain all of the methods of the
 		} 
 		catch (SQLException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -173,6 +188,19 @@ public class DBController // This class should contain all of the methods of the
 		try 
 		{
 			Database.removeStudent(studentID, classCode, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeAllStudentsFromACourse(String classCode, String teacher)
+	{
+		try 
+		{
+			Database.removeAllStudentsFromACourse(classCode, teacher);
 		} 
 		catch (SQLException e) 
 		{

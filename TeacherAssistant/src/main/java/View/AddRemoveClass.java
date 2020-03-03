@@ -172,13 +172,35 @@ public class AddRemoveClass
 			{
 				if (!classDropdown.getText().isEmpty())
 				{
-					DBController.removeCourse(classDropdown.getText(), GUI.getCookie());
-					classDropdown.setItems(DBController.getCourses(GUI.getCookie()));
-					classDropdown.setText("Select a course");
-					MessageBox successMsg = new MessageBox(shell, SWT.ICON_INFORMATION);
-					successMsg.setText("Success");
-					successMsg.setMessage("Course successfully removed");
-					successMsg.open();
+					if (!DBController.checkIfCourseHasStudents(classDropdown.getText(), GUI.getCookie()))
+					{							
+						DBController.removeCourse(classDropdown.getText(), GUI.getCookie());
+						classDropdown.setItems(DBController.getCourses(GUI.getCookie()));
+						classDropdown.setText("Select a course");
+						MessageBox successMsg = new MessageBox(shell, SWT.ICON_INFORMATION);
+						successMsg.setText("Success");
+						successMsg.setMessage("Course successfully removed");
+						successMsg.open();
+					}
+					else
+					{
+						MessageBox errorMsg = new MessageBox(shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
+						errorMsg.setText("Warning");
+						errorMsg.setMessage("The selected course currently has enrolled students. Do you still want to remove it?");
+						int response = errorMsg.open();
+						
+						if (response == SWT.YES)
+						{
+							DBController.removeAllStudentsFromACourse(classDropdown.getText(), GUI.getCookie());
+							DBController.removeCourse(classDropdown.getText(), GUI.getCookie());
+							classDropdown.setItems(DBController.getCourses(GUI.getCookie()));
+							classDropdown.setText("Select a course");
+							MessageBox successMsg = new MessageBox(shell, SWT.ICON_INFORMATION);
+							successMsg.setText("Success");
+							successMsg.setMessage("Course successfully removed");
+							successMsg.open();
+						}
+					}
 				}
 				else
 				{

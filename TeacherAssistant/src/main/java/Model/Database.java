@@ -63,6 +63,20 @@ public class Database
 		return results.next();
 	}
 	
+	public static boolean checkIfCourseHasStudents(String code, String teacher) throws SQLException
+	{
+		String query = "select* from STUDENT where classCode = ? and teacher = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, code);
+		statement.setString(2, teacher);
+		
+		ResultSet results = statement.executeQuery();
+		
+		return results.next();
+	}
+	
 	public static boolean validateLogin(String username, String password) throws SQLException
 	{
 		String query = "select* from TEACHER where username = ? and userPass = ?";
@@ -175,6 +189,18 @@ public class Database
 		statement.setString(1, studentID);
 		statement.setString(2, classCode);
 		statement.setString(3, teacher);
+		
+		statement.execute();
+	}
+	
+	public static void removeAllStudentsFromACourse(String classCode, String teacher) throws SQLException
+	{
+		String query = "delete from STUDENT where classCode = ? and teacher = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
 		
 		statement.execute();
 	}
