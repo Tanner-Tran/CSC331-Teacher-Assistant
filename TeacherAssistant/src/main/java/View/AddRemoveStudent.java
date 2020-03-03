@@ -52,17 +52,17 @@ public class AddRemoveStudent {
 		new Label(composite, SWT.NONE);
 		
 		Combo classesDropdown = new Combo(composite, SWT.NONE);
-		classesDropdown.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
+		classesDropdown.setForeground(SWTResourceManager.getColor(SWT.COLOR_BLACK));
 		GridData gd_classesDropdown = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_classesDropdown.widthHint = 115;
 		classesDropdown.setLayoutData(gd_classesDropdown);
-		classesDropdown.setText("---Classes---");
+		classesDropdown.setText("Select a class");
 		
 		Combo classesDropdown2 = new Combo(composite, SWT.NONE);
-		classesDropdown2.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
+		classesDropdown2.setForeground(SWTResourceManager.getColor(SWT.COLOR_BLACK));
 		classesDropdown2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		classesDropdown2.add("Class 1");
-		classesDropdown2.setText("---Classes---");
+		classesDropdown2.setText("Select a class");
 		
 		Label lblFirstName = new Label(composite, SWT.NONE);
 		GridData gd_lblFirstName = new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1);
@@ -76,9 +76,9 @@ public class AddRemoveStudent {
 		firstNameTb.setLayoutData(gd_firstNameTb);
 		
 		Combo studentsDropdown = new Combo(composite, SWT.NONE);
-		studentsDropdown.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
+		studentsDropdown.setForeground(SWTResourceManager.getColor(SWT.COLOR_BLACK));
 		studentsDropdown.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		studentsDropdown.setText("---Students---");
+		studentsDropdown.setText("Select a student");
 		
 		Label lblNewLabel = new Label(composite, SWT.NONE);
 		GridData gd_lblNewLabel = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);

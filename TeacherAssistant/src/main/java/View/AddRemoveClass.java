@@ -61,9 +61,9 @@ public class AddRemoveClass {
 		classTitleTextbox.setLayoutData(gd_classTitleTextbox);
 		
 		Combo classDropdown = new Combo(composite, SWT.NONE);
-		classDropdown.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_NORMAL_SHADOW));
+		classDropdown.setForeground(SWTResourceManager.getColor(SWT.COLOR_BLACK));
 		classDropdown.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		classDropdown.setText("---Classes---");
+		classDropdown.setText("Select a class");
 		classDropdown.add("Class 1");
 		
 		Label lblClassCode = new Label(composite, SWT.NONE);
