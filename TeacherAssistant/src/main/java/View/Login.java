@@ -3,11 +3,15 @@ package View;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.FillLayout;
+
+import java.awt.Rectangle;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
@@ -44,6 +48,12 @@ public class Login
 		shlLoginForm.setSize(450, 300);
 		shlLoginForm.setText("Login");
 		shlLoginForm.setLayout(new FillLayout(SWT.HORIZONTAL));
+		
+		org.eclipse.swt.graphics.Rectangle bds = shlLoginForm.getMonitor().getBounds();
+		Point p = shlLoginForm.getSize();
+		int nLeft = (bds.width - p.x) / 2;
+		int nTop = (bds.height - p.y) / 2;
+		shlLoginForm.setBounds(nLeft, nTop, p.x, p.y);
 		
 		Composite composite = new Composite(shlLoginForm, SWT.NONE);
 		GridLayout gl_composite = new GridLayout(2, false);
@@ -126,7 +136,8 @@ public class Login
 			{
 				if (DBController.validateLogin(usernameTB.getText(), passwordTB.getText()))
 				{
-					shlLoginForm.setVisible(false);
+					GUI.setCookie(usernameTB.getText());
+					shlLoginForm.dispose();
 					Menu menuWindow = new Menu();
 					menuWindow.open();
 				}
@@ -157,7 +168,8 @@ public class Login
 	            {
 	            	if (DBController.validateLogin(usernameTB.getText(), passwordTB.getText()))
 					{
-						shlLoginForm.setVisible(false);
+	            		GUI.setCookie(usernameTB.getText());
+	            		shlLoginForm.dispose();
 						Menu menuWindow = new Menu();
 						menuWindow.open();
 					}
