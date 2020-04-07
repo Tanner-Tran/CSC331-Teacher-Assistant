@@ -9,6 +9,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class ViewTakeAttendance {
 
@@ -59,17 +61,22 @@ public class ViewTakeAttendance {
 		composite.setLayout(gl_composite);
 		
 		Button takeBtn = new Button(composite, SWT.RADIO);
+		takeBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
 		takeBtn.setText("Take Attendance");
 		
 		Button viewBtn = new Button(composite, SWT.RADIO);
 		viewBtn.setText("View Attendance");
 		new Label(composite, SWT.NONE);
 		
-		Button btnNewButton = new Button(composite, SWT.NONE);
-		GridData gd_btnNewButton = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_btnNewButton.widthHint = 44;
-		btnNewButton.setLayoutData(gd_btnNewButton);
-		btnNewButton.setText("OK");
+		Button okBtn = new Button(composite, SWT.NONE);
+		GridData gd_okBtn = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_okBtn.widthHint = 44;
+		okBtn.setLayoutData(gd_okBtn);
+		okBtn.setText("OK");
 
 	}
 
