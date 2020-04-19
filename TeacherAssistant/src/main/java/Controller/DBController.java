@@ -224,4 +224,56 @@ public class DBController // This class should contain all of the methods of the
 		System.out.println("Something went wrong.");
 		return null;
 	}
+	
+	public static void addAttendance(String classCode, String teacher, java.sql.Date Date)
+	{
+		try 
+		{
+			Database.addAttendance(classCode, teacher, Date);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeAttendance(String classCode, String teacher, java.sql.Date Date)
+	{
+		try 
+		{
+			Database.removeAttendance(classCode, teacher, Date);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addAbsent(String classCode, String teacher, java.sql.Date Date, String studentID)
+	{
+		try 
+		{
+			Database.addAbsent(classCode, teacher, Date, studentID);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeAbsent(String classCode, String teacher, java.sql.Date Date, String studentID)
+	{
+		try 
+		{
+			Database.removeAbsent(classCode, teacher, Date, studentID);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 } // Class end

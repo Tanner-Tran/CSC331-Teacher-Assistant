@@ -33,7 +33,8 @@ public class Menu
 		}
 	}
 
-	protected void createContents() {
+	protected void createContents() 
+	{
 		shlTeacherAssistant = new Shell();
 		shlTeacherAssistant.setSize(557, 346);
 		shlTeacherAssistant.setText("Teacher Assistant");
@@ -136,6 +137,22 @@ public class Menu
 			public void widgetSelected(SelectionEvent e)
 			{
 				AddRemoveStudent window = new AddRemoveStudent();
+				window.open();
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) 
+			{
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		attendanceBtn.addSelectionListener(new SelectionListener()
+		{
+			public void widgetSelected(SelectionEvent e)
+			{
+				ViewTakeAttendance window = new ViewTakeAttendance();
 				window.open();
 			}
 			

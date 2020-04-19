@@ -11,27 +11,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 
 public class ViewTakeAttendance {
 
 	protected Shell shell;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			ViewTakeAttendance window = new ViewTakeAttendance();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	/**
-	 * Open the window.
-	 */
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
@@ -47,7 +33,8 @@ public class ViewTakeAttendance {
 	/**
 	 * Create contents of the window.
 	 */
-	protected void createContents() {
+	protected void createContents() 
+	{
 		shell = new Shell();
 		shell.setSize(258, 186);
 		shell.setText("Attendance");
@@ -77,7 +64,29 @@ public class ViewTakeAttendance {
 		gd_okBtn.widthHint = 44;
 		okBtn.setLayoutData(gd_okBtn);
 		okBtn.setText("OK");
-
+		
+		okBtn.addSelectionListener(new SelectionListener()
+		{
+			public void widgetSelected(SelectionEvent e)
+			{
+				if (takeBtn.getSelection())
+				{
+					
+				}
+				else if (viewBtn.getSelection())
+				{
+					
+				}
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) 
+			{
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 	}
 
 }

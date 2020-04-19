@@ -236,5 +236,57 @@ public class Database
 		return array;
 	}
 	
+	public static void addAttendance(String classCode, String teacher, java.sql.Date Date) throws SQLException
+	{
+		String query = "insert into ATTENDANCE values (?, ?, ?)";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setDate(3, Date);
+		
+		statement.execute();
+	}
 	
+	public static void removeAttendance(String classCode, String teacher, java.sql.Date Date) throws SQLException
+	{
+		String query = "delete from ATTENDANCE where classCode = ? and teacher = ? and Date = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setDate(3, Date);
+		
+		statement.execute();
+	}
+	
+	public static void addAbsent(String classCode, String teacher, java.sql.Date Date, String studentID) throws SQLException
+	{
+		String query = "insert into IS_ABSENT values (?, ?, ?, ?)";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setDate(3, Date);
+		statement.setString(4, studentID);
+		
+		statement.execute();
+	}
+	
+	public static void removeAbsent(String classCode, String teacher, java.sql.Date Date, String studentID) throws SQLException
+	{
+		String query = "delete from IS_ABSENT where classCode = ? and teacher = ? and Date = ? and studentID = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setDate(3, Date);
+		statement.setString(4, studentID);
+		
+		statement.execute();
+	}
 }
