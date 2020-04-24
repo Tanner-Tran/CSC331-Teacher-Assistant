@@ -1,4 +1,4 @@
-package View;
+package View.Behavior;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;

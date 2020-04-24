@@ -1,4 +1,4 @@
-package View;
+package View.Attendance;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.swt.SWT;
@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import Controller.DBController;
+import View.GUI;
 
 
 public class ViewAttendance {

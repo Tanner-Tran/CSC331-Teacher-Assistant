@@ -1,4 +1,4 @@
-package View;
+package View.Account;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -23,6 +23,8 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import Controller.DBController;
 import Model.Database;
+import View.GUI;
+import View.Menu;
 
 public class Login 
 {

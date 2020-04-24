@@ -1,4 +1,4 @@
-package View;
+package View.UserData;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -19,6 +19,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.apache.commons.lang3.StringUtils;
 
 import Controller.DBController;
+import View.GUI;
 
 public class AddRemoveStudent 
 {

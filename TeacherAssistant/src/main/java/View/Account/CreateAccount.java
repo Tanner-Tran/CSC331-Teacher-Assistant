@@ -1,4 +1,4 @@
-package View;
+package View.Account;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;

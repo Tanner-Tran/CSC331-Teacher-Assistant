@@ -1,9 +1,10 @@
-package View;
+package View.Attendance;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import Controller.DBController;
+import View.GUI;
 
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.SWT;

@@ -1,5 +1,7 @@
 package View;
 
+import View.Account.Login;
+
 public class GUI 
 {
 	private static String userCookie;

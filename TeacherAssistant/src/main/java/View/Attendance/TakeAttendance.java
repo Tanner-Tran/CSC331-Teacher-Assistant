@@ -1,4 +1,4 @@
-package View;
+package View.Attendance;
 
 import java.util.ArrayList;
 
@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 import Controller.DBController;
+import View.GUI;
 
 import org.eclipse.swt.widgets.Button;
 
