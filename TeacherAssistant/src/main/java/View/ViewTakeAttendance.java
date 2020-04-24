@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
 
 public class ViewTakeAttendance {
 
@@ -40,6 +41,12 @@ public class ViewTakeAttendance {
 		shell.setText("Attendance");
 		shell.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
+		org.eclipse.swt.graphics.Rectangle bds = shell.getMonitor().getBounds();
+		Point p = shell.getSize();
+		int nLeft = (bds.width - p.x) / 2;
+		int nTop = (bds.height - p.y) / 2;
+		shell.setBounds(nLeft, nTop, p.x, p.y);
+		
 		Composite composite = new Composite(shell, SWT.NONE);
 		GridLayout gl_composite = new GridLayout(1, false);
 		gl_composite.verticalSpacing = 10;
@@ -56,7 +63,7 @@ public class ViewTakeAttendance {
 		takeBtn.setText("Take Attendance");
 		
 		Button viewBtn = new Button(composite, SWT.RADIO);
-		viewBtn.setText("View Attendance");
+		viewBtn.setText("View/Update Attendance");
 		new Label(composite, SWT.NONE);
 		
 		Button okBtn = new Button(composite, SWT.NONE);
@@ -71,11 +78,13 @@ public class ViewTakeAttendance {
 			{
 				if (takeBtn.getSelection())
 				{
-					
+					ClassDateSelection window = new ClassDateSelection(0);
+					window.open();
 				}
 				else if (viewBtn.getSelection())
 				{
-					
+					ClassDateSelection window = new ClassDateSelection(1);
+					window.open();
 				}
 			}
 			
@@ -85,8 +94,7 @@ public class ViewTakeAttendance {
 				// TODO Auto-generated method stub
 				
 			}
-		});
-		
+		});		
 	}
 
 }

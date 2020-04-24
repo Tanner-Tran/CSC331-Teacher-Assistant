@@ -68,6 +68,7 @@ public class AddRemoveClass
 		shell.setText("Add / Remove Course");
 		shell.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
+		// This is the code for making the window appear in the center of the screen
 		org.eclipse.swt.graphics.Rectangle bds = shell.getMonitor().getBounds();
 		Point p = shell.getSize();
 		int nLeft = (bds.width - p.x) / 2;

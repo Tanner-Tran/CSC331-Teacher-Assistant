@@ -88,6 +88,7 @@ public class LogBehavior {
 		GridData gd_minorTextbox = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
 		gd_minorTextbox.widthHint = 15;
 		minorTextbox.setLayoutData(gd_minorTextbox);
+		minorTextbox.setText("100");
 		
 		Button btnNewButton_1 = new Button(composite, SWT.NONE);
 		GridData gd_btnNewButton_1 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);

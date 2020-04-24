@@ -101,6 +101,38 @@ public class DBController // This class should contain all of the methods of the
 		return false;
 	}
 	
+	public static boolean checkIfAttendanceDateAlreadyAdded(String classCode, String teacher, java.sql.Date Date)
+	{
+		try 
+		{
+			return Database.checkIfAttendanceDateAlreadyAdded(classCode, teacher, Date);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return false;
+	}
+	
+	public static boolean checkIfStudentWasAbsent(String classCode, String teacher, java.sql.Date attDate, String studentID)
+	{
+		try 
+		{
+			return Database.checkIfStudentWasAbsent(classCode, teacher, attDate, studentID);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return false;
+	}
+	
 	// Helper functions end here
 	
 	public static void addTeacherUser(String lastName, String firstName, String username, String password)
@@ -225,11 +257,11 @@ public class DBController // This class should contain all of the methods of the
 		return null;
 	}
 	
-	public static void addAttendance(String classCode, String teacher, java.sql.Date Date)
+	public static void addAttendanceDate(String classCode, String teacher, java.sql.Date Date)
 	{
 		try 
 		{
-			Database.addAttendance(classCode, teacher, Date);
+			Database.addAttendanceDate(classCode, teacher, Date);
 		} 
 		catch (SQLException e) 
 		{
@@ -238,11 +270,11 @@ public class DBController // This class should contain all of the methods of the
 		}
 	}
 	
-	public static void removeAttendance(String classCode, String teacher, java.sql.Date Date)
+	public static void removeAttendanceDate(String classCode, String teacher, java.sql.Date Date)
 	{
 		try 
 		{
-			Database.removeAttendance(classCode, teacher, Date);
+			Database.removeAttendanceDate(classCode, teacher, Date);
 		} 
 		catch (SQLException e) 
 		{
@@ -269,6 +301,85 @@ public class DBController // This class should contain all of the methods of the
 		try 
 		{
 			Database.removeAbsent(classCode, teacher, Date, studentID);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addGradeType(String classCode, String teacher, String typeName, double typeWeight)
+	{
+		try 
+		{
+			Database.addGradeType(classCode, teacher, typeName, typeWeight);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeGradeType(String classCode, String teacher, String typeName)
+	{
+		try 
+		{
+			Database.removeGradeType(classCode, teacher, typeName);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addAssignment(String classCode, String teacher, String assignName, String assignType)
+	{
+		try 
+		{
+			
+			Database.addAssignment(classCode, teacher, assignName, assignType);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeAssignment(String classCode, String teacher, String assignName)
+	{
+		try 
+		{
+			Database.removeAssignment(classCode, teacher, assignName);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addGrade(String classCode, String teacher, String assignName, String studentID, int grade)
+	{
+		try 
+		{
+			Database.addGrade(classCode, teacher, assignName, studentID, grade);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeGrade(String classCode, String teacher, String assignName, String studentID)
+	{
+		try 
+		{
+			Database.removeGrade(classCode, teacher, assignName, studentID);
 		} 
 		catch (SQLException e) 
 		{
