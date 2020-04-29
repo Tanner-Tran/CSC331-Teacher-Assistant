@@ -207,6 +207,8 @@ public class DBController // This class should contain all of the methods of the
 		try 
 		{
 			Database.addStudent(lastName, firstName, studentID, classCode, teacher);
+			Database.addInfractionsEntry(classCode, teacher, studentID);
+			// This will be the only foreign key record created with the student
 		} 
 		catch (SQLException e) 
 		{
@@ -214,11 +216,16 @@ public class DBController // This class should contain all of the methods of the
 			e.printStackTrace();
 		}
 	}
-	
+	/*Every time new features are added that are associated with students, these methods will need to be updated to
+	 delete all child records first. The alternative is to go back into the database and drop and re-add all foreign key constraints
+	 with a newly added 'on delete cascade'. I have decided not forego this option as I expect it would be a massive headache to accomplish.
+	 */
 	public static void removeStudent(String studentID, String classCode, String teacher)
 	{
 		try 
 		{
+			Database.removeAllAbsencesOfAStudent(classCode, teacher, studentID);
+			Database.removeInfractionsEntry(classCode, teacher, studentID);
 			Database.removeStudent(studentID, classCode, teacher);
 		} 
 		catch (SQLException e) 
@@ -232,6 +239,8 @@ public class DBController // This class should contain all of the methods of the
 	{
 		try 
 		{
+			Database.removeAllInfractionEntriesFromACourse(classCode, teacher);
+			removeAllAbsencesFromACourse(classCode, teacher);
 			Database.removeAllStudentsFromACourse(classCode, teacher);
 		} 
 		catch (SQLException e) 
@@ -283,6 +292,19 @@ public class DBController // This class should contain all of the methods of the
 		}
 	}
 	
+	public static void removeAllAttendanceDatesFromACourse(String classCode, String teacher)
+	{
+		try 
+		{
+			Database.removeAllAttendanceDatesFromACourse(classCode, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void addAbsent(String classCode, String teacher, java.sql.Date Date, String studentID)
 	{
 		try 
@@ -301,6 +323,33 @@ public class DBController // This class should contain all of the methods of the
 		try 
 		{
 			Database.removeAbsent(classCode, teacher, Date, studentID);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeAllAbsencesOfAStudent(String classCode, String teacher, String studentID)
+	{
+		try 
+		{
+			Database.removeAllAbsencesOfAStudent(classCode, teacher, studentID);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeAllAbsencesFromACourse(String classCode, String teacher)
+	{
+		try 
+		{
+			Database.removeAllAbsencesFromACourse(classCode, teacher);
+			Database.removeAllAttendanceDatesFromACourse(classCode, teacher);
 		} 
 		catch (SQLException e) 
 		{
@@ -380,6 +429,45 @@ public class DBController // This class should contain all of the methods of the
 		try 
 		{
 			Database.removeGrade(classCode, teacher, assignName, studentID);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addInfractionsEntry(String classCode, String teacher, String studentID)
+	{
+		try 
+		{
+			Database.addInfractionsEntry(classCode, teacher, studentID);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeInfractionsEntry(String classCode, String teacher, String studentID)
+	{
+		try 
+		{
+			Database.removeInfractionsEntry(classCode, teacher, studentID);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeAllInfractionEntriesFromACourse(String classCode, String teacher)
+	{
+		try 
+		{
+			Database.removeAllInfractionEntriesFromACourse(classCode, teacher);
 		} 
 		catch (SQLException e) 
 		{

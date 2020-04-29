@@ -295,6 +295,18 @@ public class Database
 		statement.execute();
 	}
 	
+	public static void removeAllAttendanceDatesFromACourse(String classCode, String teacher) throws SQLException
+	{
+		String query = "delete from ATTENDANCE where classCode = ? and teacher = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		
+		statement.execute();
+	}
+	
 	public static void addAbsent(String classCode, String teacher, java.sql.Date attDate, String studentID) throws SQLException
 	{
 		String query = "insert into IS_ABSENT values (?, ?, ?, ?)";
@@ -319,6 +331,31 @@ public class Database
 		statement.setString(2, teacher);
 		statement.setDate(3, Date);
 		statement.setString(4, studentID);
+		
+		statement.execute();
+	}
+	
+	public static void removeAllAbsencesOfAStudent(String classCode, String teacher, String studentID) throws SQLException
+	{
+		String query = "delete from IS_ABSENT where classCode = ? and teacher = ? and studentID = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setString(3, studentID);
+		
+		statement.execute();
+	}
+	
+	public static void removeAllAbsencesFromACourse(String classCode, String teacher) throws SQLException
+	{
+		String query = "delete from IS_ABSENT where classCode = ? and teacher = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
 		
 		statement.execute();
 	}
@@ -402,6 +439,44 @@ public class Database
 		statement.setString(2, teacher);
 		statement.setString(3, assignName);
 		statement.setString(4, studentID);
+		
+		statement.execute();
+	}
+	
+	public static void addInfractionsEntry(String classCode, String teacher, String studentID) throws SQLException
+	{
+		String query = "insert into INFRACTIONS values (?, ?, ?, default, default, default)";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, studentID);
+		statement.setString(2, classCode);
+		statement.setString(3, teacher);
+		
+		statement.execute();
+	}
+	
+	public static void removeInfractionsEntry(String classCode, String teacher, String studentID) throws SQLException
+	{
+		String query = "delete from INFRACTIONS where classCode = ? and teacher = ? and studentID = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setString(3, studentID);
+		
+		statement.execute();
+	}
+	
+	public static void removeAllInfractionEntriesFromACourse(String classCode, String teacher) throws SQLException
+	{
+		String query = "delete from INFRACTIONS where classCode = ? and teacher = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
 		
 		statement.execute();
 	}

@@ -1,4 +1,4 @@
-package View;
+package View.Grades;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -8,15 +8,12 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-
-import Controller.DBController;
 import org.eclipse.swt.widgets.Text;
 
-public class RecordAssignmentInput {
+public class ClassAssignmentSelection {
 
 	protected Shell shell;
 	private Text text;
@@ -27,7 +24,7 @@ public class RecordAssignmentInput {
 	 */
 	public static void main(String[] args) {
 		try {
-			RecordAssignmentInput window = new RecordAssignmentInput();
+			ClassAssignmentSelection window = new ClassAssignmentSelection();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,7 +51,7 @@ public class RecordAssignmentInput {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(374, 262);
+		shell.setSize(374, 220);
 		shell.setLayout(new FillLayout(SWT.HORIZONTAL));
 		shell.setText("Input Information");
 		
@@ -72,17 +69,7 @@ public class RecordAssignmentInput {
 		composite.setLayout(gl_composite);
 		
 		Label lblClass = new Label(composite, SWT.NONE);
-		lblClass.setText("Assignment Name");
-		new Label(composite, SWT.NONE);
-		
-		text = new Text(composite, SWT.BORDER);
-		GridData gd_text = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
-		gd_text.widthHint = 144;
-		text.setLayoutData(gd_text);
-
-		
-		Label lblDate = new Label(composite, SWT.NONE);
-		lblDate.setText("Class");
+		lblClass.setText("Course");
 		new Label(composite, SWT.NONE);
 		
 		CCombo combo = new CCombo(composite, SWT.BORDER | SWT.READ_ONLY);
@@ -90,14 +77,15 @@ public class RecordAssignmentInput {
 		gd_combo.widthHint = 141;
 		combo.setLayoutData(gd_combo);
 		
-		Label lblNewLabel = new Label(composite, SWT.NONE);
-		lblNewLabel.setText("Grade Type");
+				
+		Label lblDate = new Label(composite, SWT.NONE);
+		lblDate.setText("Assignment Name");
 		new Label(composite, SWT.NONE);
 		
-		CCombo classDropdown = new CCombo(composite, SWT.BORDER | SWT.READ_ONLY);
-		GridData gd_classDropdown = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_classDropdown.widthHint = 141;
-		classDropdown.setLayoutData(gd_classDropdown);
+		text = new Text(composite, SWT.BORDER);
+		GridData gd_text = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
+		gd_text.widthHint = 135;
+		text.setLayoutData(gd_text);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		
@@ -106,7 +94,6 @@ public class RecordAssignmentInput {
 		gd_okBtn.widthHint = 58;
 		okBtn.setLayoutData(gd_okBtn);
 		okBtn.setText("OK");
-
 
 	}
 

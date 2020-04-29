@@ -181,6 +181,12 @@ public class AddRemoveStudent
 				if (!DBController.checkIfStudentAlreadyAdded(classesDropdown.getText(), studentID.getText(), GUI.getCookie()))
 				{
 					DBController.addStudent(lastNameTb.getText(), firstNameTb.getText(), studentID.getText(), classesDropdown.getText(), GUI.getCookie());
+					
+					lastNameTb.setText("");
+					firstNameTb.setText("");
+					studentID.setText("");
+					classesDropdown.setText("Select a class");
+					
 					MessageBox successMsg = new MessageBox(shell, SWT.ICON_INFORMATION);
 					successMsg.setText("Success");
 					successMsg.setMessage("Student successfully added");
@@ -217,14 +223,22 @@ public class AddRemoveStudent
 				
 				else
 				{
-					String dirtyString = studentsDropdown.getText();
-					String parsed = StringUtils.substringBetween(dirtyString, "(", ")");
-					DBController.removeStudent(parsed, classesDropdown2.getText(), GUI.getCookie());
-					studentsDropdown.setItems(DBController.getStudents(classesDropdown2.getText(), GUI.getCookie()));
-					MessageBox successMsg = new MessageBox(shell, SWT.ICON_INFORMATION);
-					successMsg.setText("Success");
-					successMsg.setMessage("Student successfully removed");
-					successMsg.open();
+					MessageBox errorMsg = new MessageBox(shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
+					errorMsg.setText("Warning");
+					errorMsg.setMessage("You will lose all of the selected student's associated data if you proceed. Do you still wish to continue?");
+					int response = errorMsg.open();
+					
+					if (response == SWT.YES)
+					{
+						String dirtyString = studentsDropdown.getText();
+						String parsed = StringUtils.substringBetween(dirtyString, "(", ")");
+						DBController.removeStudent(parsed, classesDropdown2.getText(), GUI.getCookie());
+						studentsDropdown.setItems(DBController.getStudents(classesDropdown2.getText(), GUI.getCookie()));
+						MessageBox successMsg = new MessageBox(shell, SWT.ICON_INFORMATION);
+						successMsg.setText("Success");
+						successMsg.setMessage("Student successfully removed");
+						successMsg.open();
+					}
 				}
 			}
 			

@@ -1,4 +1,4 @@
-package View;
+package View.Grades;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -76,7 +76,7 @@ public class ClassSelection {
 		GridData gd_classDropdown = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_classDropdown.widthHint = 138;
 		classDropdown.setLayoutData(gd_classDropdown);
-		classDropdown.setItems(DBController.getCourses(GUI.getCookie()));
+		//classDropdown.setItems(DBController.getCourses(GUI.getCookie()));
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		

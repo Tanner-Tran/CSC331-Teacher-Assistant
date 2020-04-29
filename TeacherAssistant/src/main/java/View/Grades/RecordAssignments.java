@@ -1,4 +1,4 @@
-package View;
+package View.Grades;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,9 +9,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-public class ViewGradeAverages {
+public class RecordAssignments {
 
-	JFrame frmAverageGrades;
+	JFrame frmAssignmentGrades;
 	JTable table;
 
 	/**
@@ -20,7 +20,7 @@ public class ViewGradeAverages {
 	 */
 	public static void main(String[] args) {
 		try {
-			ViewGradeAverages window = new ViewGradeAverages();
+			RecordAssignments window = new RecordAssignments();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,8 +39,8 @@ public class ViewGradeAverages {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		frmAverageGrades = new JFrame();
-		frmAverageGrades.setTitle("Grade Averages");
+		frmAssignmentGrades = new JFrame();
+		frmAssignmentGrades.setTitle("Assignment Grades");
 		
         String[][] data = { 
                 { "Kundan Kumar Jha", "4031"},
@@ -50,7 +50,7 @@ public class ViewGradeAverages {
         
         // Column Names 
         String[] columnNames = { "Grade Type", "Grade Weight"};
-        frmAverageGrades.getContentPane().setLayout(null);
+        frmAssignmentGrades.getContentPane().setLayout(null);
         
         // Initializing the JTable
               
@@ -86,19 +86,22 @@ public class ViewGradeAverages {
         // adding it to JScrollPane 
         JScrollPane sp = new JScrollPane(table);
         sp.setBounds(46, 23, 240, 293);
-        frmAverageGrades.getContentPane().add(sp);
+        frmAssignmentGrades.getContentPane().add(sp);
         
         // Frame Size 
-        frmAverageGrades.setSize(346, 432); 
+        frmAssignmentGrades.setSize(346, 432); 
         // Frame Visible = true 
-        frmAverageGrades.setVisible(true); 
+        frmAssignmentGrades.setVisible(true); 
               
         
         
         JButton btnNewButton_2 = new JButton("OK");
         btnNewButton_2.setBounds(121, 332, 89, 23);
-        frmAverageGrades.getContentPane().add(btnNewButton_2);
+        frmAssignmentGrades.getContentPane().add(btnNewButton_2);
               
+              
+
+
 
 
 	}

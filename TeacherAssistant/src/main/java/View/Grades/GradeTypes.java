@@ -1,21 +1,20 @@
-package View;
+package View.Grades;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-public class ViewEditAssignments {
+public class GradeTypes {
 
-	JFrame frmAssignmentGrades;
+	JFrame frmGradeTypes;
 	JTable table;
+	DefaultTableModel model;
 
 	/**
 	 * Launch the application.
@@ -23,7 +22,7 @@ public class ViewEditAssignments {
 	 */
 	public static void main(String[] args) {
 		try {
-			ViewEditAssignments window = new ViewEditAssignments();
+			GradeTypes window = new GradeTypes();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,6 +33,7 @@ public class ViewEditAssignments {
 	 * Open the window.
 	 */
 	public void open() {
+		//Display display = Display.getDefault();
 		createContents();
 
 	}
@@ -42,40 +42,29 @@ public class ViewEditAssignments {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		frmAssignmentGrades = new JFrame();
-		frmAssignmentGrades.setTitle("Assignment Grades");
-		
-        String[][] data = { 
-                { "Kundan Kumar Jha", "4031"},
-                { "Kundan Kumar Jha", "4031"},
-                { "Anand Jha", "6014"} 
-            };
+		frmGradeTypes = new JFrame();
+		frmGradeTypes.setTitle("Grade Types");
+	
         
         // Column Names 
-        String[] columnNames = { "Grade Type", "Grade Weight"};
-        frmAssignmentGrades.getContentPane().setLayout(null);
+        frmGradeTypes.getContentPane().setLayout(null);
         
         // Initializing the JTable
               
         table = new JTable(new DefaultTableModel(
         	new Object[][] {
-        		{"Kundan Kumar Jha", "100"},
-        		{"Kundan Kumar Jha", "90"},
-        		{"Anand Jha", "80"},
+        		{"Tests", "60"},
+        		{"Homework", "10"},
+        		{"Quizzes", "20"},
         		{null, null},
         		{null, null},
         	},
         	new String[] {
-        		"Student", "Grade"
+        		"Grade Type", "Grade Weight"
         	}
         ));
         table.setBounds(20, 20, 240, 300);
         table.getTableHeader().setReorderingAllowed(false);
-        
-        
-
-        
-        
         
         TableColumn column1 = table.getColumnModel().getColumn(0);
         column1.setMinWidth(120);
@@ -86,34 +75,34 @@ public class ViewEditAssignments {
         column2.setMinWidth(120);
         column2.setMaxWidth(120);
         column2.setPreferredWidth(120);  
-        
-        
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        column2.setCellRenderer(centerRenderer);
-        
   
         // adding it to JScrollPane 
         JScrollPane sp = new JScrollPane(table);
         sp.setBounds(46, 23, 240, 293);
-        frmAssignmentGrades.getContentPane().add(sp);
+        frmGradeTypes.getContentPane().add(sp);
         
         // Frame Size 
-        frmAssignmentGrades.setSize(346, 432); 
+        frmGradeTypes.setSize(351, 457); 
         // Frame Visible = true 
-        frmAssignmentGrades.setVisible(true); 
+        frmGradeTypes.setVisible(true); 
+        
+        
+        
+        // Buttons
+        JButton btnNewButton = new JButton("Add");
+        btnNewButton.setBounds(66, 327, 89, 23);
+        frmGradeTypes.getContentPane().add(btnNewButton);
               
-        
-        
+        JButton btnNewButton_1 = new JButton("Remove");
+        btnNewButton_1.setBounds(180, 327, 89, 23);
+        frmGradeTypes.getContentPane().add(btnNewButton_1);
+              
         JButton btnNewButton_2 = new JButton("OK");
-        btnNewButton_2.setBounds(121, 332, 89, 23);
-        frmAssignmentGrades.getContentPane().add(btnNewButton_2);
-              
-              
+        btnNewButton_2.setBounds(125, 373, 89, 23);
+        frmGradeTypes.getContentPane().add(btnNewButton_2);
 
-
-
-
+        
+        
 	}
 
 }
