@@ -3,10 +3,13 @@ package JUnitTests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.SQLException;
+import java.sql.Date;
 
 import org.junit.jupiter.api.Test;
 
 import Model.Database;
+import View.Attendance.TakeAttendance;
+import View.Attendance.ViewAttendance;
 
 class TestDB {
 	@SuppressWarnings("static-access")
@@ -54,6 +57,16 @@ class TestDB {
 		{
 			System.out.println("Correct password login failed.");
 		}
+	}
+	
+	public void AttendanceTest() throws Exception
+	{
+		java.sql.Date test = new java.sql.Date(System.currentTimeMillis());
+		TakeAttendance dummy = new TakeAttendance("Gym", test);
+		
+		ViewAttendance dummy2 = new ViewAttendance("Gym", test);
+		
+		
 	}
 
 }
