@@ -85,7 +85,6 @@ public class ClassSelection {
 		gd_okBtn.widthHint = 58;
 		okBtn.setLayoutData(gd_okBtn);
 		okBtn.setText("OK");
-
 	}
 
 }

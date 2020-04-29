@@ -1,7 +1,11 @@
 package View.Behavior;
 
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -10,28 +14,17 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+
+import Controller.DBController;
+import View.GUI;
+import View.Attendance.ClassDateSelection;
 
 public class ClassStudentSelection {
 
 	protected Shell shell;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			ClassStudentSelection window = new ClassStudentSelection();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Open the window.
-	 */
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
@@ -44,13 +37,17 @@ public class ClassStudentSelection {
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
 	protected void createContents() {
 		shell = new Shell();
 		shell.setSize(308, 224);
 		shell.setLayout(new FillLayout(SWT.HORIZONTAL));
+		shell.setText("Input Information");
+		
+		org.eclipse.swt.graphics.Rectangle bds = shell.getMonitor().getBounds();
+		Point p = shell.getSize();
+		int nLeft = (bds.width - p.x) / 2;
+		int nTop = (bds.height - p.y) / 2;
+		shell.setBounds(nLeft, nTop, p.x, p.y);
 		
 		Composite composite = new Composite(shell, SWT.NONE);
 		GridLayout gl_composite = new GridLayout(3, false);
@@ -67,15 +64,16 @@ public class ClassStudentSelection {
 		GridData gd_classDropdown = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_classDropdown.widthHint = 138;
 		classDropdown.setLayoutData(gd_classDropdown);
+		classDropdown.setItems(DBController.getCourses(GUI.getCookie()));
 		
 		Label lblDate = new Label(composite, SWT.NONE);
 		lblDate.setText("Student :");
 		new Label(composite, SWT.NONE);
 		
-		CCombo combo = new CCombo(composite, SWT.BORDER | SWT.READ_ONLY);
+		CCombo studentsDropdown = new CCombo(composite, SWT.BORDER | SWT.READ_ONLY);
 		GridData gd_combo = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_combo.widthHint = 138;
-		combo.setLayoutData(gd_combo);
+		studentsDropdown.setLayoutData(gd_combo);
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 		
@@ -85,8 +83,59 @@ public class ClassStudentSelection {
 		okBtn.setLayoutData(gd_okBtn);
 		okBtn.setText("OK");
 
-
-
+		
+		classDropdown.addSelectionListener(new SelectionListener()
+		{
+			public void widgetSelected(SelectionEvent e)
+			{
+				studentsDropdown.setItems(DBController.getStudents(classDropdown.getText(), GUI.getCookie()));
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) 
+			{
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		okBtn.addSelectionListener(new SelectionListener()
+		{
+			public void widgetSelected(SelectionEvent e)
+			{
+				if (!classDropdown.getText().isEmpty())
+				{
+					if (!studentsDropdown.getText().isEmpty())
+					{
+				        String dirtyString = studentsDropdown.getText();
+						String parsed = StringUtils.substringBetween(dirtyString, "(", ")");
+						
+						LogBehavior window = new LogBehavior(classDropdown.getText(), parsed);
+						shell.dispose();
+						window.open();
+					}
+					else
+					{
+						MessageBox errorMsg = new MessageBox(shell, SWT.ICON_ERROR);
+						errorMsg.setText("Error");
+						errorMsg.setMessage("A student was not selected. Please try again.");
+						errorMsg.open();
+					}
+				}
+				else
+				{
+					MessageBox errorMsg = new MessageBox(shell, SWT.ICON_ERROR);
+					errorMsg.setText("Error");
+					errorMsg.setMessage("A class was not selected. Please try again.");
+					errorMsg.open();
+				}
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) 
+			{
+				// TODO Auto-generated method stub			
+			}
+		});	
 	}
-
 }

@@ -133,6 +133,54 @@ public class DBController // This class should contain all of the methods of the
 		return false;
 	}
 	
+	public static int getNumberOfMinorInfractions(String studentID, String classCode, String teacher)
+	{
+		try 
+		{
+			return Database.getNumberOfMinorInfractions(studentID, classCode, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return -1;
+	}
+	
+	public static int getNumberOfModerateInfractions(String studentID, String classCode, String teacher)
+	{
+		try 
+		{
+			return Database.getNumberOfModerateInfractions(studentID, classCode, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return -1;
+	}
+	
+	public static int getNumberOfMajorInfractions(String studentID, String classCode, String teacher)
+	{
+		try 
+		{
+			return Database.getNumberOfMajorInfractions(studentID, classCode, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return -1;
+	}
+	
 	// Helper functions end here
 	
 	public static void addTeacherUser(String lastName, String firstName, String username, String password)
@@ -468,6 +516,19 @@ public class DBController // This class should contain all of the methods of the
 		try 
 		{
 			Database.removeAllInfractionEntriesFromACourse(classCode, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateInfractions(String classCode, String teacher, String studentID, int minor, int moderate, int major)
+	{
+		try 
+		{
+			Database.updateInfractions(classCode, teacher, studentID, minor, moderate, major);
 		} 
 		catch (SQLException e) 
 		{

@@ -179,7 +179,9 @@ public class AddRemoveClass
 				if (!classDropdown.getText().isEmpty())
 				{
 					if (!DBController.checkIfCourseHasStudents(classDropdown.getText(), GUI.getCookie()))
-					{							
+					{
+						DBController.removeAllAttendanceDatesFromACourse(classDropdown.getText(), GUI.getCookie());
+						// If a student is added then removed, it is possible for empty attendance records to still exist
 						DBController.removeCourse(classDropdown.getText(), GUI.getCookie());
 						classDropdown.setItems(DBController.getCourses(GUI.getCookie()));
 						classDropdown.setText("Select a course");

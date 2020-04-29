@@ -18,6 +18,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import View.Account.Login;
 import View.Attendance.ViewTakeAttendance;
+import View.Behavior.ClassStudentSelection;
 import View.UserData.AddRemoveClass;
 import View.UserData.AddRemoveStudent;
 
@@ -158,6 +159,22 @@ public class Menu
 			public void widgetSelected(SelectionEvent e)
 			{
 				ViewTakeAttendance window = new ViewTakeAttendance();
+				window.open();
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) 
+			{
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		logBehaviorBtn.addSelectionListener(new SelectionListener()
+		{
+			public void widgetSelected(SelectionEvent e)
+			{
+				ClassStudentSelection window = new ClassStudentSelection();
 				window.open();
 			}
 			

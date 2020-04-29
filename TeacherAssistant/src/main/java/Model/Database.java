@@ -124,6 +124,54 @@ public class Database
 		return results.next();
 	}
 	
+	public static int getNumberOfMinorInfractions(String studentID, String classCode, String teacher) throws SQLException
+	{
+		String query = "select minor from INFRACTIONS where classCode = ? and teacher = ? and studentID = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setString(3, studentID);
+		
+		ResultSet results = statement.executeQuery();
+		
+		results.next();
+		return results.getInt(1);
+	}
+	
+	public static int getNumberOfModerateInfractions(String studentID, String classCode, String teacher) throws SQLException
+	{
+		String query = "select moderate from INFRACTIONS where classCode = ? and teacher = ? and studentID = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setString(3, studentID);
+		
+		ResultSet results = statement.executeQuery();
+		
+		results.next();
+		return results.getInt(1);
+	}
+	
+	public static int getNumberOfMajorInfractions(String studentID, String classCode, String teacher) throws SQLException
+	{
+		String query = "select major from INFRACTIONS where classCode = ? and teacher = ? and studentID = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setString(3, studentID);
+		
+		ResultSet results = statement.executeQuery();
+		
+		results.next();
+		return results.getInt(1);
+	}
+	
 	// Helper functions end here
 		
 	public static void addTeacherUser(String lastName, String firstName, String username, String password) throws SQLException
@@ -477,6 +525,22 @@ public class Database
 		
 		statement.setString(1, classCode);
 		statement.setString(2, teacher);
+		
+		statement.execute();
+	}
+	
+	public static void updateInfractions(String classCode, String teacher, String studentID, int minor, int moderate, int major) throws SQLException
+	{
+		String query = "update INFRACTIONS set minor = ?, moderate = ?, major = ? where classCode = ? and teacher = ? and studentID = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setInt(1, minor);
+		statement.setInt(2, moderate);
+		statement.setInt(3, major);
+		statement.setString(4, classCode);
+		statement.setString(5, teacher);
+		statement.setString(6, studentID);
 		
 		statement.execute();
 	}

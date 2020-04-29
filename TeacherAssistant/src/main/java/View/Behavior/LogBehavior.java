@@ -8,35 +8,37 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import Controller.DBController;
+import View.GUI;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 
-public class LogBehavior {
+public class LogBehavior 
+{
 
 	protected Shell shlLogBehavior;
 	private Text minorTextbox;
 	private Text moderateTextbox;
 	private Text majorTextbox;
+	private String course;
+	private String studentID;
+	private int minor;
+	private int moderate;
+	private int major;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			LogBehavior window = new LogBehavior();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public LogBehavior(String courseIn, String studentIDIn)
+	{
+		course = courseIn;
+		studentID = studentIDIn;
 	}
-
-	/**
-	 * Open the window.
-	 */
+	
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
@@ -49,15 +51,19 @@ public class LogBehavior {
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
+	protected void createContents() 
+	{
 		shlLogBehavior = new Shell();
 		shlLogBehavior.setSize(299, 268);
 		shlLogBehavior.setText("Log Behavior");
 		FillLayout fl_shlLogBehavior = new FillLayout(SWT.HORIZONTAL);
 		shlLogBehavior.setLayout(fl_shlLogBehavior);
+		
+		org.eclipse.swt.graphics.Rectangle bds = shlLogBehavior.getMonitor().getBounds();
+		Point p = shlLogBehavior.getSize();
+		int nLeft = (bds.width - p.x) / 2;
+		int nTop = (bds.height - p.y) / 2;
+		shlLogBehavior.setBounds(nLeft, nTop, p.x, p.y);
 		
 		Composite composite = new Composite(shlLogBehavior, SWT.NONE);
 		GridLayout gl_composite = new GridLayout(5, false);
@@ -88,7 +94,7 @@ public class LogBehavior {
 		GridData gd_minorTextbox = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
 		gd_minorTextbox.widthHint = 15;
 		minorTextbox.setLayoutData(gd_minorTextbox);
-		minorTextbox.setText("100");
+		minorTextbox.setText(DBController.getNumberOfMinorInfractions(studentID, course, GUI.getCookie()) + "");
 		
 		Button btnNewButton_1 = new Button(composite, SWT.NONE);
 		GridData gd_btnNewButton_1 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
@@ -108,12 +114,6 @@ public class LogBehavior {
 		GridData gd_button = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_button.widthHint = 15;
 		button.setLayoutData(gd_button);
-		button.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				minorTextbox.setText("1");
-			}
-		});
 		button.setText("+");
 		
 		Label lblNewLabel_1 = new Label(composite, SWT.NONE);
@@ -126,6 +126,7 @@ public class LogBehavior {
 		GridData gd_moderateTextbox = new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1);
 		gd_moderateTextbox.widthHint = 15;
 		moderateTextbox.setLayoutData(gd_moderateTextbox);
+		moderateTextbox.setText(DBController.getNumberOfModerateInfractions(studentID, course, GUI.getCookie()) + "");
 		
 		Button button_1 = new Button(composite, SWT.NONE);
 		GridData gd_button_1 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
@@ -152,6 +153,7 @@ public class LogBehavior {
 		GridData gd_majorTextbox = new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1);
 		gd_majorTextbox.widthHint = 15;
 		majorTextbox.setLayoutData(gd_majorTextbox);
+		majorTextbox.setText(DBController.getNumberOfMajorInfractions(studentID, course, GUI.getCookie()) + "");
 		
 		Button button_2 = new Button(composite, SWT.NONE);
 		GridData gd_button_2 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
@@ -183,7 +185,102 @@ public class LogBehavior {
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
 
-
+		button.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				int current = Integer.parseInt(minorTextbox.getText());
+				current++;
+				minor = current;
+				minorTextbox.setText(current + "");
+			}
+		});
+		
+		btnNewButton_1.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				int current = Integer.parseInt(minorTextbox.getText());
+				current--;
+				minor = current;
+				minorTextbox.setText(current + "");
+			}
+		});
+		
+		button_1.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				int current = Integer.parseInt(moderateTextbox.getText());
+				current--;
+				moderate = current;
+				moderateTextbox.setText(current + "");
+			}
+		});
+		
+		button_3.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				int current = Integer.parseInt(moderateTextbox.getText());
+				current++;
+				moderate = current;
+				moderateTextbox.setText(current + "");
+			}
+		});
+		
+		button_2.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				int current = Integer.parseInt(majorTextbox.getText());
+				current--;
+				major = current;
+				majorTextbox.setText(current + "");
+			}
+		});
+		
+		button_4.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				int current = Integer.parseInt(majorTextbox.getText());
+				current++;
+				major = current;
+				majorTextbox.setText(current + "");
+			}
+		});
+		
+		button_4.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				int current = Integer.parseInt(majorTextbox.getText());
+				current++;
+				majorTextbox.setText(current + "");
+			}
+		});
+		
+		btnNewButton.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				DBController.updateInfractions(course, GUI.getCookie(), studentID, minor, moderate, major);
+				MessageBox successMsg = new MessageBox(shlLogBehavior, SWT.ICON_INFORMATION);
+				successMsg.setText("Success");
+				successMsg.setMessage("Infractions successfully recorded");
+				successMsg.open();
+				shlLogBehavior.dispose();
+			}
+		});
 	}
 
 }
