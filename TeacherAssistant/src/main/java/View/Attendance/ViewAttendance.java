@@ -25,9 +25,9 @@ public class ViewAttendance {
 	private Table table;
 	private String course;
 	private java.sql.Date date;
-	boolean confirmChange = false;
-	boolean firstCheck = false;
-	boolean detectChange = false;
+	private boolean confirmChange = false;
+	private boolean firstCheck = false;
+	private boolean detectChange = false;
 	
 	public ViewAttendance(String courseIn, java.sql.Date dateIn)
 	{

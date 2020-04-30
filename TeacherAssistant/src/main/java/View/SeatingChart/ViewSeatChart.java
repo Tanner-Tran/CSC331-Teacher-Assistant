@@ -22,6 +22,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.text.TableView.TableRow;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
 
 import Controller.DBController;
 import View.GUI;
@@ -38,6 +40,9 @@ public class ViewSeatChart {
 	private String course;
 	private int rows;
 	private int columns;
+	private boolean confirmChange = false;
+	private boolean firstCheck = false;
+	private boolean detectChange = false;
 	
 	public ViewSeatChart(String courseIn, int rowsIn, int columnsIn)
 	{
@@ -148,7 +153,6 @@ public class ViewSeatChart {
         {
         	public void actionPerformed(ActionEvent e)
         	{
-        		DBController.removeAllSeatingEntries(course, GUI.getCookie());
         		boolean noDuplicates = true;
         		ArrayList<String> compareList = new ArrayList<String>();
         	  
@@ -182,7 +186,7 @@ public class ViewSeatChart {
         	 
         	  if (noDuplicates)
         	  {       		      	  
-	        	  for (int i = 0; i < columns; ++i) // Second iteration adds entries; it is guaranteed that there won't be duplicates
+	        	  for (int i = 0; i < columns; ++i) // Second iteration checks for changes
 	        	  {
 	        		  for (int j = 0; j < rows; ++j)
 	        		  {
@@ -190,9 +194,49 @@ public class ViewSeatChart {
 	        			  {
 	        				if (!table.getValueAt(j, i).toString().isEmpty())
 	        				{
-		  						String dirtyString = table.getValueAt(j, i).toString();
-		  						String parsed = StringUtils.substringBetween(dirtyString, "(", ")");
-		  						DBController.addSeatingEntry(course, GUI.getCookie(), parsed, j, i);
+	        					if ( (!DBController.checkIfSeatTaken(course, GUI.getCookie(), j, i)) || (!table.getValueAt(j, i).toString().equals(DBController.getStudent(course, GUI.getCookie(), DBController.getStudentIDInSeat(course, GUI.getCookie(), j, i)))) )
+	        					{
+	        						if (!firstCheck)
+	        						{        							
+	    								detectChange = true;
+	    								
+	    								int test = JOptionPane.showConfirmDialog(seatChart, "Changes were detected. Are you sure you wish to overwrite the previous seating chart?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+	    								
+	    								if (test == JOptionPane.OK_OPTION) // OK
+	    								{
+	    					        		DBController.removeAllSeatingEntries(course, GUI.getCookie());
+	    									firstCheck = true;
+	    									confirmChange = true;
+	    								}
+	    								else if (test == JOptionPane.CANCEL_OPTION) // CANCEL
+	    								{
+	    									firstCheck = true;
+	    								}
+	        						}
+	        					}
+	        				}
+	        				else
+	        				{
+	        					if (DBController.checkIfSeatTaken(course, GUI.getCookie(), j, i))
+	        					{
+	        						if (!firstCheck)
+	        						{        							
+	    								detectChange = true;
+	    								
+	    								int test = JOptionPane.showConfirmDialog(seatChart, "Changes were detected. Are you sure you wish to overwrite the previous seating chart?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+	    								
+	    								if (test == JOptionPane.OK_OPTION) // OK
+	    								{
+	    					        		DBController.removeAllSeatingEntries(course, GUI.getCookie());
+	    									firstCheck = true;
+	    									confirmChange = true;
+	    								}
+	    								else if (test == JOptionPane.CANCEL_OPTION) // CANCEL
+	    								{
+	    									firstCheck = true;
+	    								}
+	        						}
+	        					}
 	        				}
 	        			  }
 	        			  catch (NullPointerException E)
@@ -201,12 +245,42 @@ public class ViewSeatChart {
 	        			  }
 	        		  }
 	        	  }
-	        	  seatChart.dispose();
-	        	  //JOptionPane.showMessageDialog(seatChart, "Seating chart successfully created", "Success", JOptionPane.INFORMATION_MESSAGE);
+	        	  
+        	  	if (confirmChange)
+        	  	{
+        	  		for (int i = 0; i < columns; ++i) // Third iteration constructs new seating chart
+        	  		{
+        	  			for (int j = 0; j < rows; ++j)
+        	  			{
+        	  				try
+        	  				{
+    	        				if (!table.getValueAt(j, i).toString().isEmpty())
+    	        				{
+    		  						String dirtyString = table.getValueAt(j, i).toString();
+    		  						String parsed = StringUtils.substringBetween(dirtyString, "(", ")");
+    		  						DBController.addSeatingEntry(course, GUI.getCookie(), parsed, j, i);
+    	        				}
+        	  				}
+	        				catch (NullPointerException E)
+        	  				{
+	        					
+        	  				}
+        	  			}
+        	  		}
+        	  		JOptionPane.showMessageDialog(seatChart, "Seating chart successfully updated", "Success", JOptionPane.INFORMATION_MESSAGE);
+        	  	}
+        	  	
+				if ((detectChange && confirmChange) || (!detectChange))
+				{
+					seatChart.dispose();
+				}
           	}
+        	  
+			confirmChange = false;
+			firstCheck = false;
+			detectChange = false;
           }
-        });
-        
+        }); // A healthier approach would be to make individual changes as needed to SEATING_ENTRY rather than wiping the previous seating chart and constructing a new one       
 	}  
 	
 	class CheckBoxCellRenderer implements TableCellRenderer 
