@@ -63,7 +63,7 @@ public class ViewTakeAttendance {
 		takeBtn.setText("Take Attendance");
 		
 		Button viewBtn = new Button(composite, SWT.RADIO);
-		viewBtn.setText("View/Update Attendance");
+		viewBtn.setText("View/Edit Attendance");
 		new Label(composite, SWT.NONE);
 		
 		Button okBtn = new Button(composite, SWT.NONE);

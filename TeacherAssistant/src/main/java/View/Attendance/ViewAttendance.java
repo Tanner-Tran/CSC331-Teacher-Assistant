@@ -27,6 +27,7 @@ public class ViewAttendance {
 	private java.sql.Date date;
 	boolean confirmChange = false;
 	boolean firstCheck = false;
+	boolean detectChange = false;
 	
 	public ViewAttendance(String courseIn, java.sql.Date dateIn)
 	{
@@ -101,7 +102,7 @@ public class ViewAttendance {
       }    
 	    
 	    okBtn.addSelectionListener(new SelectionListener()
-		{
+		{	    	
 			public void widgetSelected(SelectionEvent e)
 			{
 				for (TableItem E: table.getItems())
@@ -115,17 +116,19 @@ public class ViewAttendance {
 						{
 							if (!firstCheck)
 							{
+								detectChange = true;
+								
 								MessageBox dialog = new MessageBox(shell, SWT.ICON_QUESTION | SWT.OK | SWT.CANCEL);
 								dialog.setText("Confirmation");
 								dialog.setMessage("Changes were detected. Are you sure you wish to overwrite previously recorded attendance?");
 								int test = dialog.open();
 								
-								if (test == 32)
+								if (test == 32) // OK
 								{
 									firstCheck = true;
 									confirmChange = true;
 								}
-								else if (test == 256)
+								else if (test == 256) // CANCEL
 								{
 									firstCheck = true;
 								}
@@ -143,17 +146,19 @@ public class ViewAttendance {
 						{
 							if (!firstCheck)
 							{
+								detectChange = true;
+								
 								MessageBox dialog = new MessageBox(shell, SWT.ICON_QUESTION | SWT.OK | SWT.CANCEL);
 								dialog.setText("Confirmation");
 								dialog.setMessage("Changes were detected. Are you sure you wish to overwrite previously recorded attendance?");
 								int test = dialog.open();
 								
-								if (test == 32)
+								if (test == 32) // OK
 								{
 									firstCheck = true;
 									confirmChange = true;
 								}
-								else if (test == 256)
+								else if (test == 256) // CANCEL
 								{
 									firstCheck = true;
 								}
@@ -175,7 +180,14 @@ public class ViewAttendance {
 					successMsg.open();
 				}
 				
-				shell.dispose();
+				if ((detectChange && confirmChange) || (!detectChange))
+				{
+					shell.dispose();
+				}
+				
+				confirmChange = false;
+				firstCheck = false;
+				detectChange = false;
 			}
 			
 			@Override

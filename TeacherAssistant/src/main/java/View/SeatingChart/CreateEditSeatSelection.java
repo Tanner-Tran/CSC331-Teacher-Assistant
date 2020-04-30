@@ -14,20 +14,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 
-public class ViewEditSeatSelection {
+public class CreateEditSeatSelection {
 
 	protected Shell shell;
 	
-	public static void main(String[] args) {
-		try {
-			ViewEditSeatSelection window = new ViewEditSeatSelection();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
@@ -40,14 +30,11 @@ public class ViewEditSeatSelection {
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
 	protected void createContents() 
 	{
 		shell = new Shell();
 		shell.setSize(245, 186);
-		shell.setText("Seat Chart");
+		shell.setText("Seating");
 		shell.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
 		org.eclipse.swt.graphics.Rectangle bds = shell.getMonitor().getBounds();
@@ -69,10 +56,10 @@ public class ViewEditSeatSelection {
 			public void widgetSelected(SelectionEvent e) {
 			}
 		});
-		takeBtn.setText("Edit Seat Chart");
+		takeBtn.setText("Create Seating Chart");
 		
 		Button viewBtn = new Button(composite, SWT.RADIO);
-		viewBtn.setText("View Seat Chart");
+		viewBtn.setText("View/Edit Seating Chart");
 		new Label(composite, SWT.NONE);
 		
 		Button okBtn = new Button(composite, SWT.NONE);
@@ -81,7 +68,23 @@ public class ViewEditSeatSelection {
 		okBtn.setLayoutData(gd_okBtn);
 		okBtn.setText("OK");
 		
-		
+		okBtn.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				if (takeBtn.getSelection())
+				{
+					SeatClassSelection window = new SeatClassSelection(0);
+					window.open();
+				}
+				else if (viewBtn.getSelection())
+				{
+					SeatClassSelection window = new SeatClassSelection(1);
+					window.open();
+				}
+			}
+		});
 	}
 
 }

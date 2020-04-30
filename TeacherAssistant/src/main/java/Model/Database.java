@@ -172,8 +172,68 @@ public class Database
 		return results.getInt(1);
 	}
 	
-	// Helper functions end here
+	public static boolean checkIfSeatingChartExists(String classCode, String teacher) throws SQLException
+	{
+		String query = "select* from SEATING_CHART where classCode = ? and teacher = ?";
 		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		
+		ResultSet results = statement.executeQuery();
+		
+		return results.next();
+	}
+	
+	public static int getNumberOfRows(String classCode, String teacher) throws SQLException
+	{
+		String query = "select numRows from SEATING_CHART where classCode = ? and teacher = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		
+		ResultSet results = statement.executeQuery();
+		
+		results.next();
+		return results.getInt(1);
+	}
+	
+	public static int getNumberOfColumns(String classCode, String teacher) throws SQLException
+	{
+		String query = "select numCols from SEATING_CHART where classCode = ? and teacher = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		
+		ResultSet results = statement.executeQuery();
+		
+		results.next();
+		return results.getInt(1);
+	}
+	
+	public static boolean checkIfSeatTaken(String classCode, String teacher, int rowPos, int colPos) throws SQLException
+	{
+		String query = "select* from SEATING_ENTRY where classCode = ? and teacher = ? and rowPos = ? and colPos = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setInt(3, rowPos);
+		statement.setInt(4, colPos);
+		
+		ResultSet results = statement.executeQuery();
+		
+		return results.next();
+	}	
+	
+	// Helper functions end here
+	
 	public static void addTeacherUser(String lastName, String firstName, String username, String password) throws SQLException
 	{	
 		String query = "insert into TEACHER values (?, ?, ?, ?)";
@@ -286,11 +346,38 @@ public class Database
 		statement.execute();
 	}
 	
+	public static String getStudent(String classCode, String teacher, String studentID) throws SQLException
+	{		
+		String query = "SELECT lastName, firstName, StudentID from STUDENT where teacher = ? and classCode = ? and studentID = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, teacher);
+		statement.setString(2, classCode);
+		statement.setString(3, studentID);
+		
+		ResultSet rs = statement.executeQuery();
+		
+		String result = "";
+		
+		while (rs.next())
+		{
+			result += rs.getString("firstName");
+			result += " ";
+			result += rs.getString("lastName");
+			result += " (";
+			result += rs.getString("studentID");
+			result += ")";
+		}
+		
+		return result;
+	}
+	
 	public static String[] getStudents(String classCode, String teacher) throws SQLException
 	{
 		ArrayList<String> list = new ArrayList<>();
 		
-		String query = "SELECT lastName, FirstName, StudentID from STUDENT where teacher = ? and classCode = ?";
+		String query = "SELECT lastName, firstName, StudentID from STUDENT where teacher = ? and classCode = ?";
 		
 		PreparedStatement statement = conn.prepareStatement(query);
 		
@@ -299,7 +386,7 @@ public class Database
 		
 		ResultSet rs = statement.executeQuery();
 		
-		while(rs.next())
+		while (rs.next())
 		{
 			String result = "";
 			result += rs.getString("firstName");
@@ -543,5 +630,88 @@ public class Database
 		statement.setString(6, studentID);
 		
 		statement.execute();
+	}
+	
+	public static void addSeatingChart(String classCode, String teacher, int numRows, int numCols) throws SQLException
+	{
+		String query = "insert into SEATING_CHART values (?, ?, ?, ?)";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setInt(3, numRows);
+		statement.setInt(4, numCols);
+		
+		statement.execute();
+	}
+	
+	public static void removeSeatingChart(String classCode, String teacher) throws SQLException
+	{
+		String query = "delete from SEATING_CHART where classCode = ? and teacher = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		
+		statement.execute();
+	}
+	
+	public static void addSeatingEntry(String classCode, String teacher, String studentID, int rowPos, int colPos) throws SQLException
+	{
+		String query = "insert into SEATING_ENTRY values (?, ?, ?, ?, ?)";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setString(3, studentID);
+		statement.setInt(4, rowPos);
+		statement.setInt(5, colPos);
+		
+		statement.execute();
+	}
+	
+	public static void removeSeatingEntry(String classCode, String teacher, String studentID) throws SQLException
+	{
+		String query = "delete from SEATING_ENTRY where classCode = ? and teacher = ? and studentID = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setString(3, studentID);
+		
+		statement.execute();
+	}
+	
+	public static void removeAllSeatingEntries(String classCode, String teacher) throws SQLException
+	{
+		String query = "delete from SEATING_ENTRY where classCode = ? and teacher = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		
+		statement.execute();
+	}
+	
+	public static String getStudentIDInSeat(String classCode, String teacher, int rowPos, int colPos) throws SQLException
+	{
+		String query = "select studentID from SEATING_ENTRY where classCode = ? and teacher = ? and rowPos = ? and colPos = ?";
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, classCode);
+		statement.setString(2, teacher);
+		statement.setInt(3, rowPos);
+		statement.setInt(4, colPos);
+		
+		ResultSet results = statement.executeQuery();
+		
+		results.next();
+		return results.getString(1);
 	}
 }

@@ -2,6 +2,8 @@ package View.SeatingChart;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -10,6 +12,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import Controller.DBController;
@@ -18,23 +21,21 @@ import View.GUI;
 public class SeatClassSelection {
 
 	protected Shell shell;
+	private boolean checkCreate = false;
+	private boolean checkViewEdit = false;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			SeatClassSelection window = new SeatClassSelection();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
+	public SeatClassSelection(int checkInt)
+	{
+		if (checkInt == 0)
+		{
+			checkCreate = true;
+		}
+		else if (checkInt == 1)
+		{
+			checkViewEdit = true;
 		}
 	}
-
-	/**
-	 * Open the window.
-	 */
+	
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
@@ -86,7 +87,59 @@ public class SeatClassSelection {
 		gd_okBtn.widthHint = 58;
 		okBtn.setLayoutData(gd_okBtn);
 		okBtn.setText("OK");
-
+		
+		okBtn.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				if (!classDropdown.getText().isEmpty())
+				{
+					if (checkCreate)
+					{
+						if (!DBController.checkIfSeatingChartExists(classDropdown.getText(), GUI.getCookie()))
+						{
+							DimensionSelection window = new DimensionSelection(classDropdown.getText());
+							shell.dispose();
+							window.open();
+						}
+						else
+						{
+							MessageBox errorMsg = new MessageBox(shell, SWT.ICON_ERROR);
+							errorMsg.setText("Error");
+							errorMsg.setMessage("A seating chart has already been created for the selected course. Please use the 'View/Edit Seating Chart' option if you wish to edit an existing seating chart.");
+							errorMsg.open();
+						}
+					}
+					else if (checkViewEdit)
+					{
+						if (DBController.checkIfSeatingChartExists(classDropdown.getText(), GUI.getCookie()))
+						{
+							int rows = DBController.getNumberOfRows(classDropdown.getText(), GUI.getCookie());
+							int columns = DBController.getNumberOfColumns(classDropdown.getText(), GUI.getCookie());
+							
+							ViewSeatChart window = new ViewSeatChart(classDropdown.getText(), rows, columns);
+							shell.dispose();
+							window.open();
+						}
+						else
+						{
+							MessageBox errorMsg = new MessageBox(shell, SWT.ICON_ERROR);
+							errorMsg.setText("Error");
+							errorMsg.setMessage("A seating chart has not yet been created for the selected course. Please use the 'Create Seating Chart' to do so first.");
+							errorMsg.open();
+						}
+					}
+				}
+				else
+				{
+					MessageBox errorMsg = new MessageBox(shell, SWT.ICON_ERROR);
+					errorMsg.setText("Error");
+					errorMsg.setMessage("A class was not selected. Please try again.");
+					errorMsg.open();
+				}
+			}
+		});
 	}
 
 }

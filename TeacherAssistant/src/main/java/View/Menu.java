@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
@@ -19,6 +20,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import View.Account.Login;
 import View.Attendance.ViewTakeAttendance;
 import View.Behavior.ClassStudentSelection;
+import View.SeatingChart.CreateEditSeatSelection;
 import View.UserData.AddRemoveClass;
 import View.UserData.AddRemoveStudent;
 
@@ -185,6 +187,17 @@ public class Menu
 				
 			}
 		});
+		
+		seatingChartBtn.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				CreateEditSeatSelection window = new CreateEditSeatSelection();
+				window.open();
+			}
+		});
+		
 		
 		logoutBtn.addSelectionListener(new SelectionListener()
 		{

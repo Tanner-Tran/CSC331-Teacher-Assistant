@@ -10,9 +10,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import Controller.DBController;
+import View.GUI;
 
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -23,23 +25,13 @@ public class DimensionSelection {
 	protected Shell shell;
 	private Text columnsText;
 	private Text rowsText;
+	private String course;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			DimensionSelection window = new DimensionSelection();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public DimensionSelection(String courseIn)
+	{
+		course = courseIn;
 	}
-
-	/**
-	 * Open the window.
-	 */
+	
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
@@ -52,14 +44,11 @@ public class DimensionSelection {
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
 	protected void createContents() {
 		shell = new Shell();
 		shell.setSize(244, 206);
 		shell.setLayout(new FillLayout(SWT.HORIZONTAL));
-		shell.setText("Input Information");
+		shell.setText("Input Info");
 		
 		org.eclipse.swt.graphics.Rectangle bds = shell.getMonitor().getBounds();
 		Point p = shell.getSize();
@@ -96,21 +85,37 @@ public class DimensionSelection {
 		new Label(composite, SWT.NONE);
 		
 		Button okBtn = new Button(composite, SWT.NONE);
-		okBtn.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				String rows = rowsText.getText();
-				String columns = columnsText.getText();
-				
-				CreateSeatChart window = new CreateSeatChart();
-				window.open();
-			}
-		});
+
 		GridData gd_okBtn = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_okBtn.widthHint = 58;
 		okBtn.setLayoutData(gd_okBtn);
 		okBtn.setText("OK");
-
+		
+		okBtn.addSelectionListener(new SelectionAdapter() 
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			{
+				try
+				{
+					int numRows = Integer.parseInt(rowsText.getText());
+					int numCols = Integer.parseInt(columnsText.getText());
+					
+					DBController.addSeatingChart(course, GUI.getCookie(), numRows, numCols);
+					
+					CreateSeatChart window = new CreateSeatChart(course, numRows, numCols);
+					shell.dispose();
+					window.open();
+				}
+				catch (NumberFormatException E)
+				{
+					MessageBox errorMsg = new MessageBox(shell, SWT.ICON_ERROR);
+					errorMsg.setText("Error");
+					errorMsg.setMessage("Please input integers only");
+					errorMsg.open();
+				}
+			}
+		});
 	}
 
 }

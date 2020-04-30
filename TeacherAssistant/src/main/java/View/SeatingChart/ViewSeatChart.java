@@ -3,11 +3,15 @@ package View.SeatingChart;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -16,44 +20,40 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.text.TableView.TableRow;
+
+import org.apache.commons.lang3.StringUtils;
+
+import Controller.DBController;
+import View.GUI;
+
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.ScrollPaneConstants;
 
 public class ViewSeatChart {
 
-	JFrame seatChart;
-	JTable table;
-	DefaultTableModel model;
-
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			ViewSeatChart window = new ViewSeatChart();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	private JFrame seatChart;
+	private JTable table;
+	private DefaultTableModel model;
+	private String course;
+	private int rows;
+	private int columns;
+	
+	public ViewSeatChart(String courseIn, int rowsIn, int columnsIn)
+	{
+		course = courseIn;
+		rows = rowsIn;
+		columns = columnsIn;
 	}
 
-	/**
-	 * Open the window.
-	 */
-	public void open() {
+	public void open() 
+	{
 		createContents();
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
+	protected void createContents() 
+	{
 
-		int rows = 4;
-		int columns = 4;
-		
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         
         double width = screenSize.getWidth();
@@ -64,10 +64,12 @@ public class ViewSeatChart {
 		
 		seatChart.setTitle("Seat Chart");
 		
-		if (tableWidth > width) {
+		if (tableWidth > width) 
+		{
 			seatChart.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		}
-		else {
+		else 
+		{
 			seatChart.setSize((int)tableWidth + 30, (int)tableHeight + 130);
 			seatChart.setLocationRelativeTo(null);
 		}
@@ -83,18 +85,36 @@ public class ViewSeatChart {
     	table.setRowHeight(27);
     	table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     	
-
-        for (int i = 0; i < columns; i++) {
+    	for (int i = 0; i < columns; ++i)
+    	{
+    		for (int j = 0; j < rows; ++j)
+    		{
+    			if (DBController.checkIfSeatTaken(course, GUI.getCookie(), j, i))
+    			{
+    				String studentID = DBController.getStudentIDInSeat(course, GUI.getCookie(), j, i);
+    				String parsed = DBController.getStudent(course, GUI.getCookie(), studentID);
+    				table.setValueAt(parsed, j, i);
+    			}
+    		}
+    	}
+    	
+        for (int i = 0; i < columns; i++) 
+        {
         	TableColumn column = table.getColumnModel().getColumn(i);
             JComboBox comboBox = new JComboBox();
-            comboBox.addItem("Brandon Nguyen");
+            String[] students = DBController.getStudents(course, GUI.getCookie());
+            comboBox.getModel().setSelectedItem(0);
+            for (String e : students)
+            {
+            	comboBox.addItem(e);
+            }
+            comboBox.insertItemAt("", 0);
             column.setCellEditor(new DefaultCellEditor(comboBox));
             column.setMinWidth(150);
             column.setMaxWidth(150);
             
             column.setCellRenderer(new CheckBoxCellRenderer(comboBox));
             table.repaint();
-            
         }   
         
         table.setBounds(20, 20, 240, 300);
@@ -105,10 +125,12 @@ public class ViewSeatChart {
         JScrollPane sp = new JScrollPane(table);
         
         
-        if (tableWidth > width) {
+        if (tableWidth > width) 
+        {
         	sp.setBounds(10, 11, (int)width - 15, (int)tableHeight + 1);
         }
-        else {
+        else 
+        {
         	sp.setBounds(10, 11, (int)tableWidth, (int)tableHeight + 1);
         }
 
@@ -120,29 +142,93 @@ public class ViewSeatChart {
         
         JButton btnNewButton_2 = new JButton("OK");
         btnNewButton_2.setBounds((sp.getWidth()/2 - 44), sp.getHeight() + 50, 89, 23);
-        seatChart.getContentPane().add(btnNewButton_2);
+        seatChart.getContentPane().add(btnNewButton_2);  
         
+        btnNewButton_2.addActionListener(new ActionListener()
+        {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		DBController.removeAllSeatingEntries(course, GUI.getCookie());
+        		boolean noDuplicates = true;
+        		ArrayList<String> compareList = new ArrayList<String>();
+        	  
+	        	outerloop:
+	        	for (int i = 0; i < columns; ++i) // First iteration checks for duplicates
+	        	  {
+	        		  for (int j = 0; j < rows; ++j)
+	        		  {
+	        			  try
+	        			  {
+	        				  if (!table.getValueAt(j, i).toString().isEmpty())
+	        				  {
+		            			  if (compareList.contains(table.getValueAt(j, i).toString()))
+		            			  {
+		            				  JOptionPane.showMessageDialog(seatChart, "A student was placed in two seats. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+		            				  noDuplicates = false;
+		            				  break outerloop;
+		            			  }
+		            			  else
+		            			  {
+		            				  compareList.add(table.getValueAt(j, i).toString());
+		            			  }
+	        				  }
+	        			  }
+	        			  catch (NullPointerException E)
+	        			  {
+	        				  
+	        			  }
+	        		  }
+	        	  }
+        	 
+        	  if (noDuplicates)
+        	  {       		      	  
+	        	  for (int i = 0; i < columns; ++i) // Second iteration adds entries; it is guaranteed that there won't be duplicates
+	        	  {
+	        		  for (int j = 0; j < rows; ++j)
+	        		  {
+	        			  try
+	        			  {
+	        				if (!table.getValueAt(j, i).toString().isEmpty())
+	        				{
+		  						String dirtyString = table.getValueAt(j, i).toString();
+		  						String parsed = StringUtils.substringBetween(dirtyString, "(", ")");
+		  						DBController.addSeatingEntry(course, GUI.getCookie(), parsed, j, i);
+	        				}
+	        			  }
+	        			  catch (NullPointerException E)
+	        			  {
+	        				  
+	        			  }
+	        		  }
+	        	  }
+	        	  seatChart.dispose();
+	        	  //JOptionPane.showMessageDialog(seatChart, "Seating chart successfully created", "Success", JOptionPane.INFORMATION_MESSAGE);
+          	}
+          }
+        });
         
-        
-	}
+	}  
 	
-    
-	
-	class CheckBoxCellRenderer implements TableCellRenderer {
+	class CheckBoxCellRenderer implements TableCellRenderer 
+	{
 	    JComboBox combo;
-	    public CheckBoxCellRenderer(JComboBox comboBox) {
-	    this.combo = new JComboBox();
-	    for (int i=0; i<comboBox.getItemCount(); i++){
-	        combo.addItem(comboBox.getItemAt(i));
-	    }
+	    
+	    public CheckBoxCellRenderer(JComboBox comboBox) 
+	    {
+		    this.combo = new JComboBox();
+		    for (int i=0; i < comboBox.getItemCount(); i++)
+		    {
+		        combo.addItem(comboBox.getItemAt(i));
+		    }
 	    }
 	    public Component getTableCellRendererComponent(JTable jtable, 
 	                           Object value, 
 	                           boolean isSelected, 
 	                           boolean hasFocus, 
-	                           int row, int column) {
-	    combo.setSelectedItem(value);
-	    return combo;
+	                           int row, int column) 
+	    {
+		    combo.setSelectedItem(value);
+		    return combo;
 	    }
 	}
 }

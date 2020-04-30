@@ -196,7 +196,7 @@ public class AddRemoveStudent
 				{
 					MessageBox errorMsg = new MessageBox(shell, SWT.ICON_ERROR);
 					errorMsg.setText("Error");
-					errorMsg.setMessage("The inputted student already exists in the selected course. Please try again.");
+					errorMsg.setMessage("The inputted student ID is already taken. Please try again.");
 					errorMsg.open();
 				}
 			}

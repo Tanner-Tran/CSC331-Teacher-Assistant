@@ -181,6 +181,70 @@ public class DBController // This class should contain all of the methods of the
 		return -1;
 	}
 	
+	public static boolean checkIfSeatingChartExists(String classCode, String teacher)
+	{
+		try 
+		{
+			return Database.checkIfSeatingChartExists(classCode, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return false;
+	}
+	
+	public static int getNumberOfRows(String classCode, String teacher)
+	{
+		try 
+		{
+			return Database.getNumberOfRows(classCode, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return -1;
+	}
+	
+	public static int getNumberOfColumns(String classCode, String teacher)
+	{
+		try 
+		{
+			return Database.getNumberOfColumns(classCode, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return -1;
+	}
+	
+	public static boolean checkIfSeatTaken(String classCode, String teacher, int rowPos, int colPos)
+	{
+		try 
+		{
+			return Database.checkIfSeatTaken(classCode, teacher, rowPos, colPos);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return false;
+	}
+	
 	// Helper functions end here
 	
 	public static void addTeacherUser(String lastName, String firstName, String username, String password)
@@ -267,6 +331,7 @@ public class DBController // This class should contain all of the methods of the
 	/*Every time new features are added that are associated with students, these methods will need to be updated to
 	 delete all child records first. The alternative is to go back into the database and drop and re-add all foreign key constraints
 	 with a newly added 'on delete cascade'. I have decided not forego this option as I expect it would be a massive headache to accomplish.
+	 Currently missing: Grades/Seating
 	 */
 	public static void removeStudent(String studentID, String classCode, String teacher)
 	{
@@ -296,6 +361,22 @@ public class DBController // This class should contain all of the methods of the
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static String getStudent(String classCode, String teacher, String studentID)
+	{
+		try 
+		{
+			return Database.getStudent(classCode, teacher, studentID);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return "Something went wrong.";
 	}
 	
 	public static String[] getStudents(String classCode, String teacher)
@@ -535,5 +616,86 @@ public class DBController // This class should contain all of the methods of the
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static void addSeatingChart(String classCode, String teacher, int numRows, int numCols)
+	{
+		try 
+		{
+			Database.addSeatingChart(classCode, teacher, numRows, numCols);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeSeatingChart(String classCode, String teacher)
+	{
+		try 
+		{
+			Database.removeSeatingChart(classCode, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addSeatingEntry(String classCode, String teacher, String studentID, int rowPos, int colPos)
+	{
+		try 
+		{
+			Database.addSeatingEntry(classCode, teacher, studentID, rowPos, colPos);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeSeatingEntry(String classCode, String teacher, String studentID)
+	{
+		try 
+		{
+			Database.removeSeatingEntry(classCode, teacher, studentID);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removeAllSeatingEntries(String classCode, String teacher)
+	{
+		try 
+		{
+			Database.removeAllSeatingEntries(classCode, teacher);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static String getStudentIDInSeat(String classCode, String teacher, int rowPos, int colPos)
+	{
+		try 
+		{
+			return Database.getStudentIDInSeat(classCode, teacher, rowPos, colPos);
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Something went wrong.");
+		return "Something went wrong.";
 	}
 } // Class end

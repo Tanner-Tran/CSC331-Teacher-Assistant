@@ -119,7 +119,7 @@ public class ClassDateSelection {
 							{
 								MessageBox errorMsg = new MessageBox(shell, SWT.ICON_ERROR);
 								errorMsg.setText("Error");
-								errorMsg.setMessage("Attendance has already been taken for the selected course and date. Please use the 'View/Update Attendance' option if you wish to update existing attendance.");
+								errorMsg.setMessage("Attendance has already been taken for the selected course and date. Please use the 'View/Edit Attendance' option if you wish to edit existing attendance.");
 								errorMsg.open();
 							}
 						}
