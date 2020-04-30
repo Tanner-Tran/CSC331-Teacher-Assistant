@@ -181,7 +181,7 @@ public class AddRemoveClass
 					if (!DBController.checkIfCourseHasStudents(classDropdown.getText(), GUI.getCookie()))
 					{
 						DBController.removeAllAttendanceDatesFromACourse(classDropdown.getText(), GUI.getCookie());
-						// If a student is added then removed, it is possible for empty attendance records to still exist
+						DBController.removeSeatingChart(classDropdown.getText(), GUI.getCookie());
 						DBController.removeCourse(classDropdown.getText(), GUI.getCookie());
 						classDropdown.setItems(DBController.getCourses(GUI.getCookie()));
 						classDropdown.setText("Select a course");
@@ -200,6 +200,8 @@ public class AddRemoveClass
 						if (response == SWT.YES)
 						{
 							DBController.removeAllStudentsFromACourse(classDropdown.getText(), GUI.getCookie());
+							DBController.removeAllAttendanceDatesFromACourse(classDropdown.getText(), GUI.getCookie());
+							DBController.removeSeatingChart(classDropdown.getText(), GUI.getCookie());
 							DBController.removeCourse(classDropdown.getText(), GUI.getCookie());
 							classDropdown.setItems(DBController.getCourses(GUI.getCookie()));
 							classDropdown.setText("Select a course");

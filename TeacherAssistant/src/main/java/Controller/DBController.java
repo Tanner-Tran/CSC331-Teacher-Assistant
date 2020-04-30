@@ -331,12 +331,13 @@ public class DBController // This class should contain all of the methods of the
 	/*Every time new features are added that are associated with students, these methods will need to be updated to
 	 delete all child records first. The alternative is to go back into the database and drop and re-add all foreign key constraints
 	 with a newly added 'on delete cascade'. I have decided not forego this option as I expect it would be a massive headache to accomplish.
-	 Currently missing: Grades/Seating
+	 Currently missing: Grades
 	 */
 	public static void removeStudent(String studentID, String classCode, String teacher)
 	{
 		try 
 		{
+			Database.removeSeatingEntry(classCode, teacher, studentID);
 			Database.removeAllAbsencesOfAStudent(classCode, teacher, studentID);
 			Database.removeInfractionsEntry(classCode, teacher, studentID);
 			Database.removeStudent(studentID, classCode, teacher);
@@ -352,8 +353,9 @@ public class DBController // This class should contain all of the methods of the
 	{
 		try 
 		{
+			Database.removeAllSeatingEntriesFromACourse(classCode, teacher);
 			Database.removeAllInfractionEntriesFromACourse(classCode, teacher);
-			removeAllAbsencesFromACourse(classCode, teacher);
+			Database.removeAllAbsencesFromACourse(classCode, teacher);
 			Database.removeAllStudentsFromACourse(classCode, teacher);
 		} 
 		catch (SQLException e) 
@@ -478,7 +480,6 @@ public class DBController // This class should contain all of the methods of the
 		try 
 		{
 			Database.removeAllAbsencesFromACourse(classCode, teacher);
-			Database.removeAllAttendanceDatesFromACourse(classCode, teacher);
 		} 
 		catch (SQLException e) 
 		{
@@ -670,11 +671,11 @@ public class DBController // This class should contain all of the methods of the
 		}
 	}
 	
-	public static void removeAllSeatingEntries(String classCode, String teacher)
+	public static void removeAllSeatingEntriesFromACourse(String classCode, String teacher)
 	{
 		try 
 		{
-			Database.removeAllSeatingEntries(classCode, teacher);
+			Database.removeAllSeatingEntriesFromACourse(classCode, teacher);
 		} 
 		catch (SQLException e) 
 		{

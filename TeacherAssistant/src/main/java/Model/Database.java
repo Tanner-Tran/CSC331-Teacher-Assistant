@@ -686,7 +686,7 @@ public class Database
 		statement.execute();
 	}
 	
-	public static void removeAllSeatingEntries(String classCode, String teacher) throws SQLException
+	public static void removeAllSeatingEntriesFromACourse(String classCode, String teacher) throws SQLException
 	{
 		String query = "delete from SEATING_ENTRY where classCode = ? and teacher = ?";
 		

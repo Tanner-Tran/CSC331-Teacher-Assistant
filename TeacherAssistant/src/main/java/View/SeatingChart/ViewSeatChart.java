@@ -78,9 +78,7 @@ public class ViewSeatChart {
 			seatChart.setSize((int)tableWidth + 30, (int)tableHeight + 130);
 			seatChart.setLocationRelativeTo(null);
 		}
-		
-        
-		 
+			 
 		 Object[] columnsArray = new Object[columns];
 		 Object[][] rowsArray = new Object[rows][columns];
 
@@ -204,7 +202,7 @@ public class ViewSeatChart {
 	    								
 	    								if (test == JOptionPane.OK_OPTION) // OK
 	    								{
-	    					        		DBController.removeAllSeatingEntries(course, GUI.getCookie());
+	    					        		DBController.removeAllSeatingEntriesFromACourse(course, GUI.getCookie());
 	    									firstCheck = true;
 	    									confirmChange = true;
 	    								}
@@ -227,7 +225,7 @@ public class ViewSeatChart {
 	    								
 	    								if (test == JOptionPane.OK_OPTION) // OK
 	    								{
-	    					        		DBController.removeAllSeatingEntries(course, GUI.getCookie());
+	    					        		DBController.removeAllSeatingEntriesFromACourse(course, GUI.getCookie());
 	    									firstCheck = true;
 	    									confirmChange = true;
 	    								}
