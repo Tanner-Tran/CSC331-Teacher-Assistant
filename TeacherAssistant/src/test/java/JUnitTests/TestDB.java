@@ -7,9 +7,9 @@ import java.sql.Date;
 
 import org.junit.jupiter.api.Test;
 
-import Model.Database;
-import View.Attendance.TakeAttendance;
-import View.Attendance.ViewAttendance;
+import view.attendance.TakeAttendance;
+import view.attendance.ViewAttendance;
+import model.Database;
 
 class TestDB {
 	@SuppressWarnings("static-access")
